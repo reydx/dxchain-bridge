@@ -2,8 +2,11 @@ import './index.less';
 import { Button } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import metaMaskImg from '@/assets/login/metaMask.png';
+import useAuth from '@/wrappers/wallet/WalletHooks';
 
 export default function Login() {
+  const auth = useAuth()
+  console.log(`auth`, auth)
   return (
     <div className="login">
       <div className="container">
@@ -14,7 +17,7 @@ export default function Login() {
             <div className="title">MetaMask</div>
             <div className="desc">Connect using your browser wallet</div>
           </div>
-          <Button type="primary" className="connect-button">
+          <Button type="primary" className="connect-button" onClick={auth.login}>
             Connect
           </Button>
         </div>

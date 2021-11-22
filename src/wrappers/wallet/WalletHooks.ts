@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useWeb3React } from '@web3-react/core';
+import { useContext } from 'react';
+import walletContext from './walletContext';
 import { injected } from '@/utils/connectors';
 
 export function useEagerConnect() {
@@ -14,7 +16,7 @@ export function useEagerConnect() {
           setTried(true);
         });
       } else {
-        setTried(true);
+        setTried(false);
       }
     });
   }, []); // intentionally only running on mount (make sure it's only mounted once :))
@@ -70,3 +72,9 @@ export function useInactiveListener(suppress = false) {
     }
   }, [active, error, suppress, activate]);
 }
+
+const useAuth = () => {
+  return {  ...useContext(walletContext), ...useWeb3React(), };
+};
+
+export default useAuth;
