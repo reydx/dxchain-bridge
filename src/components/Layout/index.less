@@ -1,0 +1,11 @@
+@import url('~@/style/default.less');
+
+.dx-layout {
+  background: @bg-main;
+  height: 100%;
+  width: 100%;
+  .dx-container {
+    height: calc(100% - @header-height);
+    overflow-y: scroll;
+  }
+}

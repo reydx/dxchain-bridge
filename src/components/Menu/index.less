@@ -1,0 +1,40 @@
+@import url('~@/style/default.less');
+
+@media (min-width: @m1) {
+  .menu {
+    .pc-menu {
+      display: flex;
+      & > div {
+        margin-left: 32px;
+        cursor: pointer;
+        font-size: 18px;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: #FFFFFF;
+        line-height: 18px;
+        &:hover {
+          text-shadow: rgb(255 255 255) 0px 0px 1px;
+        }
+      }
+    }
+    .m-menu {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: @m) {
+  .menu {
+    .pc-menu {
+      display: none;
+    }
+    .m-menu {
+      .menu-icon {
+        font-size: .45rem;
+        &:hover {
+          text-shadow: rgb(255 255 255) 0px 0px 1px;
+        }
+      }
+    }
+  }
+}
