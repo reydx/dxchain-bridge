@@ -1,0 +1,40 @@
+@import url('~@/style/default.less');
+
+@media (min-width: @m1) {
+  .account {
+    margin-left: 32px;
+    width: 157px;
+    height: 30px;
+    background: #091D44;
+    border-radius: 4px;
+    padding: 0 23px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    & > img {
+      width: 16px;
+    }
+    & > span {
+      margin-left: 4px;
+      width: 92px;
+      font-size: 14px;
+      font-family: PingFangSC-Regular, PingFang SC;
+      font-weight: 400;
+      color: #FFFFFF;
+    }
+  }
+}
+
+@media (max-width: @m) {
+  .account {
+    & > img {
+      width: 0.5rem;
+      vertical-align: middle;
+      margin-right: .49rem;
+    }
+    & > span {
+      display: none;
+    }
+  }
+}

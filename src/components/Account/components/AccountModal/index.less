@@ -1,0 +1,60 @@
+@import url('~@/style/default.less');
+
+@media (min-width: @m1) {
+  .account-modal {
+    right: -450px;
+    top: 50px;
+    .title {
+      margin-top: 10px;
+      font-size: 20px;
+      font-weight: bolder;
+    }
+    .address {
+      position: relative;
+      margin-top: 10px;
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      background: #333;
+      padding: 5px 20px 5px 5px ;
+      border-radius: 5px;
+      cursor: pointer;
+      .icon {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        font-size: 16px
+      }
+    }
+  }
+}
+
+@media (max-width: @m) {
+  .account-modal {
+    top: 50px;
+    .title {
+      margin-top: 10px;
+      font-size: 20px;
+      font-weight: bolder;
+    }
+    .address {
+      position: relative;
+      margin-top: 10px;
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      background: #333;
+      padding: 5px 20px 5px 5px ;
+      border-radius: 5px;
+      cursor: pointer;
+      .icon {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        font-size: 16px
+      }
+    }
+  }
+}

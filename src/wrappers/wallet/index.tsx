@@ -15,8 +15,9 @@ const WalletProvider: FC = ({ children }) => {
     console.log(`ethereum`, ethereum);
     if (ethereum) {
       try {
-        await activate(injected).finally(() => {
-          close();
+        await activate(injected)
+        .finally(() => {
+          // history.push('/')
         });
       } catch (error) {
         console.log(`error`, error);
@@ -29,9 +30,6 @@ const WalletProvider: FC = ({ children }) => {
         value={{
           login,
           logout: () => {},
-          openWallet: () => {},
-          status: '',
-          account: '',
         }}
       >
         {children}

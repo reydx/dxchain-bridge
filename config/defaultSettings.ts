@@ -9,7 +9,9 @@ export default defineConfig({
   routes,
   layout: false,
   theme,
-  antd: {},
+  antd: {
+    dark: true,
+  },
   locale: {
     antd: true,
     default: 'zh-CN',
