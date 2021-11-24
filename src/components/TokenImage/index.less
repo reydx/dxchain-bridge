@@ -1,11 +1,32 @@
-.token-image {
-  display: flex;
-  align-items: center;
-  font-size: 18px;
-  font-family: PingFangSC-Regular, PingFang SC;
-  font-weight: 400;
-  & > img {
-    width: 24px;
-    margin-right: 8px;
+
+
+
+@import url('~@/style/default.less');
+
+@media (min-width: @m1) {
+  .token-image {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    & > img {
+      width: 24px;
+      margin-right: 8px;
+    }
+  }
+}
+
+@media (max-width: @m) {
+  .token-image {
+    display: flex;
+    align-items: center;
+    font-size: .28rem;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    & > img {
+      width: .48rem;
+      margin-right: .1rem;
+    }
   }
 }

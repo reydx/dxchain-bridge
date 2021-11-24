@@ -30,6 +30,10 @@ export default function Select() {
       name: 'AA4VE',
       symbol: '0x0a3A21356793B49154Fd3BbE91CBc2A16c0457f5',
       balance: 8888,
+    },  {
+      name: 'AA4VE',
+      symbol: '0x0a3A21356793B49154Fd3BbE91CBc2A16c0457f5',
+      balance: 8888,
     },
   ];
 
