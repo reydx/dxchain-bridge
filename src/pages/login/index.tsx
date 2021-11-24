@@ -5,6 +5,7 @@ import { ExclamationCircleOutlined } from '@ant-design/icons';
 import metaMaskImg from '@/assets/login/metaMask.png';
 import useAuth from '@/wrappers/wallet/WalletHooks';
 import './index.less';
+import ErrorComponent from '@/components/Error';
 
 export default function Login() {
   const auth = useAuth();
@@ -35,12 +36,7 @@ export default function Login() {
           </Button>
         </div>
 
-        {auth.error?.message && (
-          <div className="error">
-            <ExclamationCircleOutlined className="icon" /> {auth.error?.message}
-            {/* Please select Ethereum Mainnet in your wallet */}
-          </div>
-        )}
+        <ErrorComponent errMsg={auth.error?.message}/>
 
         <div className="download">
           Don't have a wallet?

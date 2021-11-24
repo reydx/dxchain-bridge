@@ -6,4 +6,6 @@ export default {
   'menu.lpMigration': 'LP Migration',
   'menu.docs': 'Docs',
   'menu.login': 'Login',
+  'menu.transfer': 'Transfer',
+  'menu.select': 'Select'
 };

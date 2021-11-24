@@ -1,21 +1,16 @@
-import React from 'react';
-import { Redirect } from 'umi';
-import { useWeb3React } from '@web3-react/core'
-import { useInactiveListener } from '../wallet/WalletHooks';
+import React, { useEffect } from 'react';
+// import { Redirect } from 'umi';
+// import { useWeb3React } from '@web3-react/core'
 
 const Auth: React.FC = ({ children }) => {
-  const { account } = useWeb3React();
-
-  if (account) {
-    return <>{children}</>;
-  } else {
+  // const { account } = useWeb3React();
+    // console.log(`account`, account)
     return (
       <>
         {children}
-        <Redirect to="/login" />
+        {/* {!account && <Redirect to="/login" />} */}
       </>
     );
-  }
 };
 
 export default Auth;

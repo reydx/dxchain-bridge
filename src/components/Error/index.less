@@ -1,0 +1,47 @@
+@import url('~@/style/default.less');
+
+@media (min-width: @m1) {
+  .error-component {
+    margin-bottom: 18px;
+    padding: 5px 10px;
+    width: 100%;
+    min-height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ef3e3e;
+    border-radius: 6px;
+    font-size: 16px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #ffffff;
+    line-height: 20px;
+    .icon {
+      margin-right: 10px;
+    }
+  }
+}
+
+
+@media (max-width: @m) {
+  .error-component {
+    margin-bottom: 0.3rem;
+    width: 100%;
+    min-height: 0.5rem;
+    padding: 0.06rem 0.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ef3e3e;
+    border-radius: 6px;
+    font-size: 0.28rem;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #ffffff;
+    line-height: 0.35rem;
+    .icon {
+      margin-right: 0.15rem;
+    }
+  }
+}
+

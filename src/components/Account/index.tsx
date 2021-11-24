@@ -7,7 +7,6 @@ import './index.less';
 export default function Account() {
   const { account } = useWeb3React();
   const accountModalRef: any = useRef(null);
-  console.log(`account`, account);
   const show = () => accountModalRef.current.open();
 
   return account ? (

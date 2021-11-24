@@ -6,4 +6,6 @@ export default {
   'menu.lpMigration': 'LP迁移',
   'menu.docs': '文档',
   'menu.login': '登录',
+  'menu.transfer': '转移',
+  'menu.select': '选择',
 };
