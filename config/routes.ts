@@ -18,7 +18,12 @@ export default [
         path: '/select',
         component: '@/pages/select',
         name: 'menu.select'
-      }
+      },
+      {
+        path: '/convert',
+        component: '@/pages/convert',
+        name: 'menu.convert'
+      },
     ],
   },
 ];

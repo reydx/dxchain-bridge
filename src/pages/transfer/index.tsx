@@ -9,7 +9,10 @@ import { useHistory } from 'umi';
 import './index.less';
 
 export default function Transfer() {
-  const history = useHistory()
+  const history = useHistory();
+
+  const go = (path: string) => history.push(path);
+
 
   return (
     <div className="transfer">
@@ -19,7 +22,7 @@ export default function Transfer() {
           <img src={EthereumImg} alt="" />
           Ethereum
         </div>
-        <div className="select" onClick={() => history.push('/select')}>
+        <div className="select" onClick={() => go('/select')}>
           <TokenImage />
           <DownOutlined className="icon" />
         </div>
@@ -59,19 +62,22 @@ export default function Transfer() {
         <div className="fee">Estimated transfer fee: ~{9999999} DX</div>
       </div>
 
-
       <ErrorComponent
         errMsg={'Insufficient balance to cover gas costs. Please add ETH.'}
       />
 
-      <Button type="primary" block className="transfer-btn">Transfer</Button>
+      <Button type="primary" block className="transfer-btn">
+        Transfer
+      </Button>
 
       <div className="bottom">
-        <div>
-          Convert AEB assets <RightOutlined className="icon" />
+        <div onClick={() => go('/convert')}>
+          Convert AEB assets
+          <RightOutlined className="icon" />
         </div>
-        <div>
-          Proof of assets <RightOutlined className="icon"  />
+        <div onClick={() => go('/proof-of-assets')}>
+          Proof of assets
+          <RightOutlined className="icon" />
         </div>
       </div>
     </div>

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Input } from 'antd';
-import { CloseOutlined, SearchOutlined } from '@ant-design/icons';
-import './index.less';
+import { CloseOutlined } from '@ant-design/icons';
 import { TokenImage } from '@/components/TokenImage';
 import search from '@/assets/select/search.png'
 import { useHistory } from 'umi';
+import './index.less';
 
 export default function Select() {
   const history = useHistory()

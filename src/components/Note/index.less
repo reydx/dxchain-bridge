@@ -1,0 +1,50 @@
+@import url('~@/style/default.less');
+
+@media (min-width: @m1) {
+  .note-component {
+    width: 520px;
+    background: #112957;
+    box-shadow: 0px 0px 50px 0px rgba(0, 0, 0, 0.05);
+    border-radius: 16px;
+    border: 1px solid #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 40px 16px 82px;
+    margin-bottom: 16px;
+    & > div {
+      width: 357px;
+      text-align: center;
+      font-size: 16px;
+      font-family: PingFangSC-Regular, PingFang SC;
+      font-weight: 400;
+      line-height: 24px;
+    }
+    & > .icon {
+      cursor: pointer;
+    }
+  }
+}
+
+@media (max-width: @m) {
+  .note-component {
+    width: 6.7rem;
+    background: #112957;
+    box-shadow: 0rem 0rem 0.5rem 0rem rgba(0, 0, 0, 0.05);
+    border-radius: 0.16rem;
+    border: 0.01rem solid #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: .24rem .4rem;
+    & > div {
+      width: 5rem;
+      font-size: 0.28rem;
+      font-family: PingFangSC-Regular, PingFang SC;
+      font-weight: 400;
+      color: #FFFFFF;
+      line-height: 0.36rem;
+      // text-align: center;
+    }
+  }
+}

@@ -7,5 +7,6 @@ export default {
   'menu.docs': 'Docs',
   'menu.login': 'Login',
   'menu.transfer': 'Transfer',
-  'menu.select': 'Select'
+  'menu.select': 'Select',
+  'menu.convert': 'Convert',
 };

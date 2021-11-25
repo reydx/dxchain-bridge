@@ -8,4 +8,5 @@ export default {
   'menu.login': '登录',
   'menu.transfer': '转移',
   'menu.select': '选择',
+  'menu.convert': '转换',
 };
