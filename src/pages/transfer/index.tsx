@@ -66,7 +66,7 @@ export default function Transfer() {
         errMsg={'Insufficient balance to cover gas costs. Please add ETH.'}
       />
 
-      <Button type="primary" block className="transfer-btn">
+      <Button type="primary" block className="transfer-btn" onClick={() => go('/confirm')}>
         Transfer
       </Button>
 

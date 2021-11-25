@@ -24,6 +24,11 @@ export default [
         component: '@/pages/convert',
         name: 'menu.convert'
       },
+      {
+        path: '/confirm',
+        component: '@/pages/confirm',
+        name: 'menu.confirm'
+      },
     ],
   },
 ];

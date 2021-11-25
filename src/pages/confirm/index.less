@@ -1,0 +1,95 @@
+@import url('~@/style/default.less');
+
+@media (min-width: @m1) {
+  .confirm-page {
+    width: 520px;
+    margin: 200px auto;
+    font-family: PingFangSC-Regular, PingFang SC;
+    .box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #091D44;
+      box-shadow: 0px 0px 50px 0px rgba(0, 0, 0, 0.05);
+      border-radius: 16px;
+      & > div:nth-of-type(1) {
+        width: 176px;
+        font-size: 18px;
+        font-family: PingFangSC-Medium, PingFang SC;
+        font-weight: 500;
+        line-height: 18px;
+        margin: .3rem 0 .33rem;
+      }
+
+      & > img {
+        width: 80px;
+        margin-bottom: .13rem;
+      }
+
+      & > div:nth-of-type(2) {
+        width: 318px;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 24px;
+        margin-bottom: 21px;
+        text-align: center;
+      }
+
+      & > div:nth-of-type(3) {
+        width: 318px;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 24px;
+        margin-bottom: 32px;
+        text-align: center;
+      }
+    }
+  }
+}
+
+@media (max-width: @m) {
+  .confirm-page {
+    width: 6.7rem;
+    margin: 1rem auto;
+    font-family: PingFangSC-Regular, PingFang SC;
+    .box {
+      height: 5.8rem;
+      margin-top: .24rem;
+      background: #091D44;
+      border-radius: 0.16rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      & > div:nth-of-type(1) {
+        width: 3.52rem;
+        font-size: 0.36rem;
+        margin: .8rem 0 .56rem;
+        font-family: PingFangSC-Medium, PingFang SC;
+        font-weight: 500;
+        line-height: 0.36rem;
+      }
+
+      & > img {
+        width: 1.2rem;
+        margin-bottom: .36rem;
+      }
+
+      & > div:nth-of-type(2) {
+        width: 5.11rem;
+        font-size: 0.28rem;
+        font-weight: 400;
+        line-height: 0.36rem;
+        text-align: center;
+        margin-bottom: .56rem;
+      }
+
+      & > div:nth-of-type(3) {
+        width: 3.97rem;
+        font-size: 0.28rem;
+        font-weight: 400;
+        line-height: 0.28rem;
+        text-align: center;
+      }
+    }
+  }
+}
