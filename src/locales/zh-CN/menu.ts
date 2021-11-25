@@ -9,4 +9,7 @@ export default {
   'menu.transfer': '转移',
   'menu.select': '选择',
   'menu.convert': '转换',
+  'menu.confirm': 'Confirm',
+  'menu.wrapping': 'Wrapping',
+  'menu.transaction': 'Transaction',
 };

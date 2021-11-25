@@ -1,0 +1,126 @@
+@import url('~@/style/default.less');
+
+@media (min-width: @m1) {
+  .progress-components {
+    position: relative;
+    font-family: PingFangSC-Regular, PingFang SC;
+    width: 300px;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 36px;
+    .start,
+    .final {
+      position: absolute;
+      top: -8px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      & > div:nth-of-type(1) {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: #000;
+        border: 2px solid #ffffff;
+      }
+      & > div:nth-of-type(2) {
+        font-size: 16px;
+        font-weight: 400;
+        margin-top: 5px;
+      }
+    }
+    .start {
+      left: -27px;
+    }
+    .final {
+      right: -26px;
+    }
+    .line {
+      position: relative;
+      z-index: 99;
+      width: 10%;
+      height: 2px;
+      box-shadow: 0px 0px 8px 0px rgba(255, 255, 255, 0.5);
+      background: #ffffff;
+      transition: all 1s;
+    }
+    .base-line {
+      position: absolute;
+      height: 2px;
+      width: 100%;
+      background-color: #203661;
+    }
+
+    .actived {
+      background: #4d51ff !important;
+    }
+    .time {
+      position: absolute;
+      right: -80px;
+      top: -10px;
+    }
+  }
+}
+
+@media (max-width: @m) {
+  .progress-components {
+    position: relative;
+    font-family: PingFangSC-Regular, PingFang SC;
+    width: 5rem;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0.46rem;
+    .start,
+    .final {
+      position: absolute;
+      top: -0.12rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      & > div:nth-of-type(1) {
+        width: 0.3rem;
+        height: 0.3rem;
+        border-radius: 50%;
+        background: #000;
+        border: 0.03rem solid #ffffff;
+      }
+      & > div:nth-of-type(2) {
+        font-size: 0.28rem;
+        font-weight: 400;
+        margin-top: 5px;
+      }
+    }
+    .start {
+      left: -0.46rem;
+    }
+    .final {
+      right: -0.46rem;
+    }
+    .line {
+      position: relative;
+      z-index: 99;
+      width: 10%;
+      height: 2px;
+      box-shadow: 0px 0px 8px 0px rgba(255, 255, 255, 0.5);
+      background: #ffffff;
+      transition: all 0.75s;
+    }
+    .base-line {
+      position: absolute;
+      height: 2px;
+      width: 100%;
+      background-color: #203661;
+    }
+
+    .actived {
+      background: #4d51ff !important;
+    }
+
+    .time {
+      position: absolute;
+      right: -1.4rem;
+      top: -0.2rem;
+    }
+  }
+}

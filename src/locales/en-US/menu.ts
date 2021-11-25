@@ -9,4 +9,7 @@ export default {
   'menu.transfer': 'Transfer',
   'menu.select': 'Select',
   'menu.convert': 'Convert',
+  'menu.confirm': 'Confirm',
+  'menu.wrapping': 'Wrapping',
+  'menu.transaction': 'Transaction',
 };

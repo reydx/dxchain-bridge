@@ -1,25 +1,25 @@
 import React from 'react';
 import Note from '@/components/Note';
 import meatMaskLogoW from '@/assets/common/meatMask-logo-w.png';
-import { useHistory } from 'umi';
+import Progress from '@/components/Progress';
 import './index.less';
+import { useHistory } from 'umi';
 
-export default function Confirm() {
+export default function Wrapping() {
   const history = useHistory();
   return (
-    <div className="confirm-page">
+    <div className="wrapping-page">
       <Note
         msg={'Transferring ETH over the bridge requires two transactions'}
       />
 
-      <div className="box" onClick={() => history.push('/wrapping')}>
+      <div className="box">
         <div className="title">Wrapping your ETH</div>
-        <img src={meatMaskLogoW} alt="" />
         <div>
-          Your native asset needs to be wrapped to transfer it through the
-          bridge
+          Waiting for{' '}
+          <span onClick={() => history.push('/transaction')}>Confirmation</span>
         </div>
-        <div>Please confirm it in MetaMask</div>
+        <Progress />
       </div>
     </div>
   );
