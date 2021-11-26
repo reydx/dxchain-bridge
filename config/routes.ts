@@ -39,6 +39,11 @@ export default [
         component: '@/pages/transaction',
         name: 'menu.transaction',
       },
+      {
+        path: '/proof',
+        component: '@/pages/proof',
+        name: 'menu.proof',
+      },
     ],
   },
 ];

@@ -1,0 +1,248 @@
+@import url('~@/style/default.less');
+
+@media (min-width: @m1) {
+  .proof {
+    width: 1040px;
+    margin: 100px auto;
+    background: #091d44;
+    box-shadow: 0px 0px 50px 0px rgba(0, 0, 0, 0.05);
+    border-radius: 16px;
+    padding-bottom: 10px;
+    .title {
+      height: 80px;
+      line-height: 80px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 39px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+      & > div {
+        font-size: 18px;
+        font-family: PingFangSC-Medium, PingFang SC;
+        font-weight: 500;
+      }
+      svg {
+        font-size: 20px;
+        cursor: pointer;
+      }
+    }
+    .note {
+      width: 465px;
+      font-size: 18px;
+      font-family: PingFangSC-Regular, PingFang SC;
+      font-weight: 400;
+      line-height: 24px;
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    & > ul {
+      padding: 0;
+      margin-top: 30px;
+      overflow: scroll;
+      height: 640px;
+      & > li {
+        display: flex;
+        justify-content: space-between;
+        padding: 36px 41px;
+        height: 320px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+        font-family: PingFangSC-Regular, PingFang SC;
+        .right {
+          margin-right: 20px;
+        }
+        .info-tag {
+          .t-title {
+            font-size: 16px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 16px;
+            margin: 12px 0;
+          }
+          & > div:nth-of-type(2) {
+            display: flex;
+            align-items: center;
+            .t-left {
+              width: 420px;
+              height: 80px;
+              background: #112957;
+              border-radius: 8px;
+              padding: 20px;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              & > div:nth-of-type(1) {
+                width: 200px;
+                font-size: 16px;
+                font-weight: 400;
+                line-height: 16px;
+                overflow: hidden;
+                & > div:nth-of-type(1) {
+                  margin-bottom: 8px;
+                }
+              }
+              & > div:nth-of-type(2) {
+                flex: 1;
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+                .meatMask-logo {
+                  width: 40px;
+                  height: 40px;
+                  margin-right: 23px;
+                  cursor: pointer;
+                }
+                .copy {
+                  width: 25px;
+                  height: 28px;
+                  margin-right: 23px;
+                  cursor: pointer;
+                }
+                .share {
+                  margin-right: 13px;
+                  cursor: pointer;
+                  & > img {
+                    width: 21px;
+                    height: 25px;
+                  }
+                }
+              }
+            }
+
+            .link {
+              width: 80px;
+              height: 80px;
+              background: #112957;
+              border-radius: 8px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              cursor: pointer;
+              margin-left: 20px;
+              & > img {
+                width: 28px;
+              }
+            }
+          }
+        }
+      }
+      & > li:last-of-type {
+        border-bottom: 0;
+      }
+    }
+  }
+}
+
+@media (max-width: @m) {
+  .proof {
+    width: 6.7rem;
+    margin: 0.5rem auto;
+    background: #091d44;
+    border-radius: 0.16rem;
+    .title {
+      height: 1.2rem;
+      line-height: 1.2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 0.4rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+      & > div {
+        font-size: 0.36rem;
+        font-family: PingFangSC-Medium, PingFang SC;
+        font-weight: 500;
+      }
+      svg {
+        font-size: 0.4rem;
+        cursor: pointer;
+      }
+    }
+    .note {
+      width: 5.9rem;
+      font-size: 0.28rem;
+      font-family: PingFangSC-Regular, PingFang SC;
+      font-weight: 400;
+      line-height: 0.36rem;
+      margin: 0.22rem auto;
+      text-align: center;
+    }
+
+    & > ul {
+      padding: 0;
+      margin: 0.57rem 0;
+      & > li {
+        padding: 0.2rem 0.4rem 0.42rem;
+        font-family: PingFangSC-Regular, PingFang SC;
+        .info-tag {
+          .t-title {
+            font-size: 0.28rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 0.22rem;
+            margin: 0.2rem 0 0.18rem;
+          }
+          & > div:nth-of-type(2) {
+            .t-left {
+              width: 100%;
+              height: 1.4rem;
+              background: #112957;
+              border-radius: 0.11rem;
+              display: flex;
+              align-items: center;
+              padding: 0 0.3rem;
+              & > div:nth-of-type(1) {
+                width: 2.42rem;
+                font-size: 0.28rem;
+                font-weight: 400;
+                line-height: 0.32rem;
+                overflow: hidden;
+                & > div:nth-of-type(1) {
+                  margin-bottom: 0.08rem;
+                }
+              }
+              & > div:nth-of-type(2) {
+                flex: 1;
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+                .meatMask-logo {
+                  width: 0.73rem;
+                  height: 0.73rem;
+                  margin-right: 0.52rem;
+                }
+                .copy {
+                  width: 0.45rem;
+                  height: 0.51rem;
+                  margin-right: 0.5rem;
+                }
+                .share {
+                  // margin-right: 13px;
+                  & > img {
+                    width: 0.39rem;
+                    height: 0.45rem;
+                  }
+                }
+              }
+            }
+            .link {
+              margin: 0.18rem auto 0.3rem;
+              width: 0.96rem;
+              height: 0.96rem;
+              background: #112957;
+              border-radius: 0.1rem;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              & > img {
+                width: 0.36rem;
+              }
+            }
+          }
+        }
+      }
+      & > li:last-of-type {
+        border-bottom: 0;
+      }
+    }
+  }
+}

@@ -13,7 +13,6 @@ export default function Transfer() {
 
   const go = (path: string) => history.push(path);
 
-
   return (
     <div className="transfer">
       <div className="from-box">
@@ -66,7 +65,12 @@ export default function Transfer() {
         errMsg={'Insufficient balance to cover gas costs. Please add ETH.'}
       />
 
-      <Button type="primary" block className="transfer-btn" onClick={() => go('/confirm')}>
+      <Button
+        type="primary"
+        block
+        className="transfer-btn"
+        onClick={() => go('/confirm')}
+      >
         Transfer
       </Button>
 
@@ -75,7 +79,7 @@ export default function Transfer() {
           Convert AEB assets
           <RightOutlined className="icon" />
         </div>
-        <div onClick={() => go('/proof-of-assets')}>
+        <div onClick={() => go('/proof')}>
           Proof of assets
           <RightOutlined className="icon" />
         </div>

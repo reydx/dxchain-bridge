@@ -39,15 +39,16 @@ export default function Convert() {
       </div>
 
       <ErrorComponent
-          errMsg={'Insufficient balance to cover gas costs. Please add ETH.'}
-        />
+        errMsg={'Insufficient balance to cover gas costs. Please add ETH.'}
+      />
 
-        <Button type="primary" block className="upgrade-btn">
-          Upgrade
-        </Button>
+      <Button type="primary" block className="upgrade-btn">
+        Upgrade
+      </Button>
 
-        <div className="bottom">Proof of assets <RightOutlined className="icon" />
-        </div>
+      <div className="bottom" onClick={() => history.push('/proof')}>
+        Proof of assets <RightOutlined className="icon" />
+      </div>
     </div>
   );
 }

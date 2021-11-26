@@ -22,3 +22,20 @@ export function copy(text: string, successMsg: string = '复制成功') {
     message.error('复制失败');
   }
 }
+
+/**
+ * @description: 截取字符串中间用省略号显示
+ */
+export function getCenterSubStr(
+  text: string,
+  start: number = 10,
+  end: number = 10,
+) {
+  const pc = document.body.clientWidth > 768;
+  const newStart = pc ? start : 5;
+  const newEnd = pc ? end : 5;
+  var subStr1 = text.substr(0, newStart);
+  var subStr2 = text.substr(text.length - newEnd, newEnd);
+  var subStr = subStr1 + '...' + subStr2;
+  return subStr;
+}

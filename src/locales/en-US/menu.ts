@@ -12,4 +12,5 @@ export default {
   'menu.confirm': 'Confirm',
   'menu.wrapping': 'Wrapping',
   'menu.transaction': 'Transaction',
+  'menu.proof': 'Proof',
 };
