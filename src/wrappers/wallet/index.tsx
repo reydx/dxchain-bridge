@@ -4,21 +4,15 @@ import { useWeb3React } from '@web3-react/core';
 import { injected } from '@/utils/connectors';
 import { useHistory } from 'umi';
 
-
-
 const WalletProvider: FC = ({ children }) => {
   const history = useHistory();
   const { active, error, activate, deactivate } = useWeb3React();
-
 
   const login = async () => {
     const { ethereum }: any = window;
     if (ethereum) {
       try {
-        await activate(injected)
-        .finally(() => {
-          history.push('/')
-        });
+        await activate(injected);
       } catch (error) {
         console.log(`error`, error);
       }
@@ -26,12 +20,10 @@ const WalletProvider: FC = ({ children }) => {
   };
 
   useEffect(() => {
-    injected.isAuthorized()
-    .then((isAuthorized: any) => {
+    injected.isAuthorized().then((isAuthorized: any) => {
       if (isAuthorized) {
-        activate(injected, undefined, true)
-        .catch(() => {
-          history.push('/login')
+        activate(injected, undefined, true).catch(() => {
+          history.push('/login');
         });
       }
     });
@@ -39,8 +31,7 @@ const WalletProvider: FC = ({ children }) => {
 
   useEffect(() => {
     const { ethereum }: any = window;
-
-    if (ethereum && ethereum.on) {
+    if (ethereum && ethereum.on && active) {
       const handleConnect = () => {
         console.log("Handling 'connect' event");
         activate(injected);
@@ -53,8 +44,6 @@ const WalletProvider: FC = ({ children }) => {
         console.log("Handling 'accountsChanged' event with payload", accounts);
         if (accounts.length > 0) {
           activate(injected);
-        } else {
-          history.push('/login')
         }
       };
       const handleNetworkChanged = (networkId: any) => {
@@ -76,20 +65,17 @@ const WalletProvider: FC = ({ children }) => {
         }
       };
     }
-  }, [active, error, activate, deactivate]);
-
-
-
+  }, [active, error, activate]);
 
   return (
-      <Context.Provider
-        value={{
-          login,
-          logout: () => {},
-        }}
-      >
-        {children}
-      </Context.Provider>
+    <Context.Provider
+      value={{
+        login,
+        logout: () => {},
+      }}
+    >
+      {children}
+    </Context.Provider>
   );
 };
 

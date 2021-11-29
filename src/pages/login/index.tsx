@@ -12,6 +12,7 @@ export default function Login() {
   const history = useHistory();
 
   useEffect(() => {
+    console.log(`auth`, auth);
     if (auth.account) {
       history.push('/');
     }
@@ -36,7 +37,7 @@ export default function Login() {
           </Button>
         </div>
 
-        <ErrorComponent errMsg={auth.error?.message}/>
+        <ErrorComponent errMsg={auth.error?.message} />
 
         <div className="download">
           Don't have a wallet?

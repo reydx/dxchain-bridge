@@ -10,13 +10,13 @@ export function useEagerConnect() {
   const [tried, setTried] = useState(false);
 
   useEffect(() => {
-    injected.isAuthorized().then((isAuthorized: any) => {
+    injected.isAuthorized().then((isAuthorized) => {
       if (isAuthorized) {
         activate(injected, undefined, true).catch(() => {
           setTried(true);
         });
       } else {
-        setTried(false);
+        setTried(true);
       }
     });
   }, []); // intentionally only running on mount (make sure it's only mounted once :))
@@ -74,7 +74,7 @@ export function useInactiveListener(suppress = false) {
 }
 
 const useAuth = () => {
-  return {  ...useContext(walletContext), ...useWeb3React(), };
+  return { ...useContext(walletContext), ...useWeb3React() };
 };
 
 export default useAuth;
