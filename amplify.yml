@@ -1,0 +1,22 @@
+version: 1
+applications:
+  - frontend:
+      phases:
+        preBuild:
+          commands:
+            - yarn
+        build:
+          commands:
+            # yarn build:$BUILD_ENV 后面需要变量的话，在aws中设置$BUILD_ENV
+            # https://docs.aws.amazon.com/amplify/latest/userguide/build-settings.html
+            - yarn build
+      artifacts:
+        # IMPORTANT - Please verify your build output directory
+        baseDirectory: dist
+        files:
+          - '**/*'
+      cache:
+        paths:
+          - node_modules/**/*
+
+    appRoot: /
