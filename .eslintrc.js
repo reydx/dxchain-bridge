@@ -1,6 +1,5 @@
 module.exports = {
-  extends: [require.resolve('@umijs/fabric/dist/eslint')],
-  globals: {
-
-  },
+  // extends: [require.resolve('@umijs/fabric/dist/eslint')],
+  // globals: {
+  // },
 };
