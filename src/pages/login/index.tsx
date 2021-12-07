@@ -1,10 +1,9 @@
 import { useEffect } from 'react';
 import { useHistory } from 'umi';
 import { Button } from 'antd';
-import { ExclamationCircleOutlined } from '@ant-design/icons';
 import metaMaskImg from '@/assets/login/metaMask.png';
 import ErrorComponent from '@/components/Error';
-import useAuth from '@/hooks/WalletHooks';
+import useAuth from '@/hooks/useAuth';
 import './index.less';
 
 export default function Login() {
@@ -12,7 +11,6 @@ export default function Login() {
   const history = useHistory();
 
   useEffect(() => {
-    console.log(`auth`, auth);
     if (auth.account) {
       history.push('/');
     }

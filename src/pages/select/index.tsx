@@ -1,25 +1,23 @@
 import React from 'react';
 import { Input } from 'antd';
-import { CloseOutlined } from '@ant-design/icons';
+import { CloseOutlined, LoadingOutlined } from '@ant-design/icons';
 import { TokenImage } from '@/components/TokenImage';
 import search from '@/assets/select/search.png';
-import { useHistory, useModel } from 'umi';
+import { useHistory } from 'umi';
+import selectHooks from './hooks';
 import './index.less';
 
 export default function Select() {
   const history = useHistory();
-  const { list, get } = useModel('useSelectModel', (model) => ({
-    list: model.tokenList,
-    get: model.get,
-  }));
+  const { tokenList } = selectHooks();
 
   return (
     <div className="select-box">
       <div>
-        Transfer to Avalanche network{' '}
+        Transfer to Avalanche network
         <CloseOutlined className="icon" onClick={() => history.push('/')} />
       </div>
-      <div onClick={() => get()}>Choose a token from Ethereum</div>
+      <div>Choose a token from Ethereum</div>
 
       <Input
         className="search"
@@ -28,13 +26,17 @@ export default function Select() {
       />
 
       <ul>
-        {list.map((item) => {
+        {tokenList.map((item) => {
           return (
-            <li key={item.name}>
-              <TokenImage />
-              <div className="right">
-                {item.balance} {item.name}
-              </div>
+            <li key={item.symbol}>
+              <TokenImage token={item} />
+              {item.balance ? (
+                <div className="right">
+                  {item.balance} {item.name}
+                </div>
+              ) : (
+                <LoadingOutlined className="loading-icon" />
+              )}
             </li>
           );
         })}

@@ -8,7 +8,7 @@ import defaultSettings from './defaultSettings';
 export default defineConfig({
   ...defaultSettings,
   define: {
-    REACT_APP_CHAIN_ID: 1024,
+    REACT_NET: 'MAINNET',
     REACT_APP_NODE_1: 'https://bsc-dataseed.binance.org',
   },
 });

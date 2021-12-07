@@ -17,11 +17,11 @@ export default defineConfig({
     default: 'zh-CN',
     baseNavigator: true,
   },
-  // dva: {
-  //   immer: true,
-  //   hmr: true,
-  //   lazyLoad: true,
-  // },
+  dva: {
+    immer: true,
+    hmr: true,
+    lazyLoad: true,
+  },
   fastRefresh: {},
   favicon: '/favicon.ico',
   dynamicImport: {

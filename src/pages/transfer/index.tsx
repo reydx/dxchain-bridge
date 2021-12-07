@@ -5,7 +5,7 @@ import ErrorComponent from '@/components/Error';
 import { TokenImage } from '@/components/TokenImage';
 import EthereumImg from '@/assets/transfer/ethereum.png';
 import switchImg from '@/assets/transfer/switch.png';
-import { useHistory } from 'umi';
+import { useHistory, useModel } from 'umi';
 import './index.less';
 
 export default function Transfer() {

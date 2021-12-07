@@ -1,11 +1,22 @@
-import React from 'react'
-import './index.less'
+import { SerializedToken } from '@/constants/tokens';
+import './index.less';
 
-export function TokenImage() {
+type Props = {
+  token: SerializedToken;
+};
+
+export function TokenImage(props: Props) {
+  const { token = {} } = props;
   return (
     <div className="token-image">
-      <img src="/tokens/0x0a3A21356793B49154Fd3BbE91CBc2A16c0457f5.png" alt="" />
-      Ethereum
+      <img
+        src={
+          token.logoURI ||
+          `https://pancakeswap.finance/images/tokens/${token.address}.png`
+        }
+        alt=""
+      />
+      {token.symbol}
     </div>
-  )
+  );
 }
