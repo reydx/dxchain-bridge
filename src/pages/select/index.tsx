@@ -32,7 +32,7 @@ export default function Select() {
               <TokenImage token={item} />
               {item.balance ? (
                 <div className="right">
-                  {item.balance} {item.name}
+                  {item.balance} {item.symbol}
                 </div>
               ) : (
                 <LoadingOutlined className="loading-icon" />

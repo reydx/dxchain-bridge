@@ -19,7 +19,7 @@ export interface SerializedToken {
 }
 
 export const TokensConfig: SerializedTokenList = {
-  ETH: {
+  BNB: {
     addressConfig: {
       [BNBCHAINID.MAINNET]: '0x2170ed0880ac9a755fd29b2688956bd959f933f8',
       [BNBCHAINID.TESTNET]: '0xDe4044Df84670490B704cf7FA81018D78216c713',
@@ -27,8 +27,8 @@ export const TokensConfig: SerializedTokenList = {
       [HTCHAINID.TESTNET]: '0xfeB76Ae65c11B363Bd452afb4A7eC59925848656',
     },
     decimals: 18,
-    symbol: 'ETH',
-    logoURI: '/tokens/ETH.png',
+    symbol: 'BNB',
+    logoURI: '/tokens/BNB.png',
   },
   DX: {
     addressConfig: {
