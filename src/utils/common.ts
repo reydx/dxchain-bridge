@@ -39,3 +39,9 @@ export function getCenterSubStr(
   var subStr = subStr1 + '...' + subStr2;
   return subStr;
 }
+
+/**
+ * @description: sleep
+ */
+export const sleep = (ms: number) =>
+  new Promise((resolve) => setTimeout(resolve, ms));

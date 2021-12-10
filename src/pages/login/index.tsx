@@ -12,7 +12,7 @@ export default function Login() {
 
   useEffect(() => {
     if (auth.account) {
-      history.push('/');
+      history.goBack();
     }
   }, [auth.account]);
 

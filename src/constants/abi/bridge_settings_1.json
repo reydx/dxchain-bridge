@@ -1,0 +1,55 @@
+{
+  "critical": {
+    "assets": {
+      "WETH": {
+        "asset": "WETH",
+        "assetName": "WETH",
+        "chainlinkFeedAddress": "0x0000000000000000000000000000000000000000",
+        "denomination": 18,
+        "nativeContractAddress": "0xc778417E063141139Fce010982780140Aa0cD5Ab",
+        "nativeNetwork": "ethereum",
+        "offboardFeeDollars": 15,
+        "onboardFeeDollars": 3,
+        "tokenName": "Wrapped Ether",
+        "wrappedContractAddress": "0x71F8BA01598Ee26bf1706a1D49D7af5A2899E53d",
+        "wrappedNetwork": "dxchain"
+      }
+    },
+    "networks": { "dxchain": 256, "ethereum": 3 },
+    "walletAddress": {
+      "dxchain": "0x6541765e494B07bd44fcE6D08b1AE8e0ac805F32",
+      "ethereum": "0xa91cd90E3d58E4EFCc9D1BF86C6767256354578B"
+    },
+    "wardenConfiguration": {
+      "threshold": 2,
+      "wardens": [
+        { "host": "localhost", "port": 50051 },
+        { "host": "localhost", "port": 50052 },
+        { "host": "localhost", "port": 50053 }
+      ]
+    }
+  },
+  "nonCritical": {
+    "chainlinkDxUsdFeedAddress": "0xe1329b3f6513912caf589659777b66011aee5880",
+    "chainlinkEthUsdFeedAddress": "0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419",
+    "currentDxPrice": 980869725,
+    "currentEthPrice": 441344145236,
+    "currentGasPrices": {
+      "dxchain": { "nextBaseFee": "", "suggestedTip": "" },
+      "ethereum": { "nextBaseFee": "", "suggestedTip": "" }
+    },
+    "minimumConfirmations": { "dxchain": 1, "ethereum": 35 },
+    "networkViews": {
+      "dxchain": {
+        "lastIndexedBlock": 100,
+        "lastSeenBlock": 10312025,
+        "nodeVersion": ""
+      },
+      "ethereum": {
+        "lastIndexedBlock": 11524184,
+        "lastSeenBlock": 11484877,
+        "nodeVersion": ""
+      }
+    }
+  }
+}

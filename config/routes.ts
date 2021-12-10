@@ -2,7 +2,7 @@ export default [
   {
     path: '/',
     component: '@/components/Layout',
-    // wrappers: ['@/wrappers/auth'],
+    wrappers: ['@/wrappers/auth'],
     routes: [
       {
         path: '/login',

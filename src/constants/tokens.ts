@@ -42,3 +42,19 @@ export const TokensConfig: SerializedTokenList = {
     logoURI: '/tokens/DX.png',
   },
 };
+
+export const tokens = (chainId: number | undefined) => {
+  let defaultTokens: SerializedToken[] = [];
+  if (chainId) {
+    defaultTokens = Object.keys(TokensConfig).reduce(
+      (pre: SerializedToken[], current) => {
+        const symbol = TokensConfig[current];
+        symbol.chainId = symbol.chainId;
+        symbol.address = symbol.addressConfig[chainId];
+        return [...pre, symbol];
+      },
+      [],
+    );
+  }
+  return defaultTokens;
+};

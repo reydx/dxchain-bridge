@@ -6,13 +6,14 @@ import { useHistory } from 'umi';
 
 const WalletProvider: FC = ({ children }) => {
   const history = useHistory();
-  const { active, error, activate, deactivate } = useWeb3React();
+  const { active, error, activate, account } = useWeb3React();
 
   const login = async () => {
     const { ethereum }: any = window;
     if (ethereum) {
       try {
         await activate(injected);
+        if (account) history.push('/');
       } catch (error) {
         console.log(`error`, error);
       }
