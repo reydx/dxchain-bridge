@@ -1,16 +1,15 @@
-import React from 'react';
 import { Button, Input } from 'antd';
 import { DownOutlined, RightOutlined } from '@ant-design/icons';
 import ErrorComponent from '@/components/Error';
 import { TokenImage } from '@/components/TokenImage';
-import EthereumImg from '@/assets/transfer/ethereum.png';
-import switchImg from '@/assets/transfer/switch.png';
 import { useHistory, useModel } from 'umi';
+import switchImg from '@/assets/transfer/switch.png';
+import ChianImage from '@/components/ChainImage';
 import './index.less';
 
 export default function Transfer() {
   const history = useHistory();
-
+  const { searchToken } = useModel('useSelectModel', (data) => data);
   const go = (path: string) => history.push(path);
 
   return (
@@ -18,11 +17,10 @@ export default function Transfer() {
       <div className="from-box">
         <div className="title">From</div>
         <div className="logo">
-          <img src={EthereumImg} alt="" />
-          Ethereum
+          <ChianImage chainId={256} />
         </div>
         <div className="select" onClick={() => go('/select')}>
-          <TokenImage />
+          <TokenImage token={searchToken} />
           <DownOutlined className="icon" />
         </div>
         <div className="num">
@@ -51,7 +49,7 @@ export default function Transfer() {
         <div className="title">To</div>
         <div className="to-details">
           <div>
-            <TokenImage />
+            <ChianImage chainId={3} />
           </div>
           <div>
             <span>Available balance</span>

@@ -1,6 +1,6 @@
-export const BNBCHAINID = {
-  MAINNET: 56,
-  TESTNET: 97,
+export const ETHCHAINID = {
+  MAINNET: 1,
+  TESTNET: 3,
 };
 
 export const HTCHAINID = {
@@ -8,4 +8,11 @@ export const HTCHAINID = {
   TESTNET: 256,
 };
 
-export const ChainId = [BNBCHAINID[REACT_NET], HTCHAINID[REACT_NET]];
+export const ChainId = [ETHCHAINID[REACT_NET], HTCHAINID[REACT_NET]];
+
+export const ChainName = {
+  [ETHCHAINID.MAINNET]: 'Ethereum',
+  [ETHCHAINID.TESTNET]: 'Ropsten',
+  [HTCHAINID.MAINNET]: 'Hecochain',
+  [HTCHAINID.TESTNET]: 'Hecochain-testnet',
+};

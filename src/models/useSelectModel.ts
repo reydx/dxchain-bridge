@@ -1,10 +1,16 @@
-import { useState, useCallback, useEffect } from 'react';
+import { SetStateAction, useState } from 'react';
+import { SerializedToken, TokensConfig } from '@/constants/tokens';
 
 export default function useSelectModel() {
-  const [selectTokenAddress, setSelectTokenAddress] = useState('');
+  const [searchToken, setSearchToken] = useState(TokensConfig.ETH);
+
+  const clickToken = (history: any, token: SetStateAction<SerializedToken>) => {
+    setSearchToken(token);
+    history.push('/');
+  };
 
   return {
-    selectTokenAddress,
-    setSelectTokenAddress,
+    searchToken,
+    clickToken,
   };
 }

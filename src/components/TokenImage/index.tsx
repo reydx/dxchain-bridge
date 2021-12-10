@@ -6,7 +6,12 @@ type Props = {
 };
 
 export function TokenImage(props: Props) {
-  const { token = {} } = props;
+  const {
+    token = {
+      logoURI: '',
+      symbol: '',
+    },
+  } = props;
   return (
     <div className="token-image">
       <img

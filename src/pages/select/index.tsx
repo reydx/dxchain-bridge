@@ -4,15 +4,15 @@ import { CloseOutlined, LoadingOutlined } from '@ant-design/icons';
 import { TokenImage } from '@/components/TokenImage';
 import search from '@/assets/select/search.png';
 import { useWeb3React } from '@web3-react/core';
-import { useHistory } from 'umi';
+import { useHistory, useModel } from 'umi';
 import selectHooks from './hooks';
 import './index.less';
 
 export default function Select() {
   const history = useHistory();
   const { chainId } = useWeb3React();
-  const { searchTokenList, searchChange, getAllTokens, clickToken } =
-    selectHooks();
+  const { searchTokenList, searchChange, getAllTokens } = selectHooks();
+  const { clickToken } = useModel('useSelectModel', (data) => data);
 
   useEffect(() => {
     if (chainId) {
@@ -38,7 +38,7 @@ export default function Select() {
       <ul>
         {searchTokenList.map((item) => {
           return (
-            <li key={item.symbol} onClick={() => clickToken(item.symbol)}>
+            <li key={item.symbol} onClick={() => clickToken(history, item)}>
               <TokenImage token={item} />
               {item.balance ? (
                 <div className="right">

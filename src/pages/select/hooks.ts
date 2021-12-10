@@ -1,18 +1,15 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, SetStateAction } from 'react';
 import { useWeb3React } from '@web3-react/core';
-import { SerializedToken, tokens } from '@/constants/tokens';
+import { SerializedToken, tokens, TokensConfig } from '@/constants/tokens';
 import { formatCurrency } from '@/utils/currency';
 import { getBalance } from '@/api/DX';
-import { useHistory } from 'umi';
 
 export default function selectHooks() {
-  const history = useHistory();
   const { chainId, library, account } = useWeb3React();
   const [defaultTokenList, setDefaultTokenList] = useState<SerializedToken[]>(
     [],
   );
   const [searchTokenList, setSearchTokenList] = useState<SerializedToken[]>([]);
-  const [searchToken, setSearchToken] = useState('BNB');
 
   const getAllTokens = useCallback(
     (setSearchList = false) => {
@@ -31,15 +28,13 @@ export default function selectHooks() {
     const copy = [...list];
     for (const key in list) {
       switch (list[key].symbol) {
-        case 'BNB':
-          await library.eth
-            .getBalance(list[key].address)
-            .then((res: string) => {
-              copy[key] = {
-                ...copy[key],
-                balance: `${formatCurrency(res, 6)}`,
-              };
-            });
+        case 'ETH':
+          await library.eth.getBalance(account).then((res: string) => {
+            copy[key] = {
+              ...copy[key],
+              balance: `${formatCurrency(res, 6)}`,
+            };
+          });
           break;
         default:
           if (account)
@@ -68,17 +63,10 @@ export default function selectHooks() {
     setSearchTokenList([...filterList]);
   };
 
-  const clickToken = (symbol: string) => {
-    setSearchToken(symbol.toUpperCase());
-    history.push('/');
-  };
-
   return {
     defaultTokenList,
-    searchToken,
     searchTokenList,
     getAllTokens,
     searchChange,
-    clickToken,
   };
 }

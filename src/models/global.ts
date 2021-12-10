@@ -1,4 +1,4 @@
-import { Effect, ImmerReducer, Subscription } from 'umi';
+import { Effect, ImmerReducer } from 'umi';
 
 export interface GlobalModelState {
   user: {
@@ -10,10 +10,10 @@ export interface GlobalModelType {
   namespace: 'global';
   state: GlobalModelState;
   effects: {
-    query: Effect;
+    selectTokenEffects: Effect;
   };
   reducers: {
-    save: ImmerReducer<GlobalModelState>;
+    selectTokenReducers: ImmerReducer<GlobalModelState>;
   };
   subscriptions: {};
 }
@@ -22,18 +22,14 @@ const GlobalModel: GlobalModelType = {
   namespace: 'global',
 
   state: {
-    user: {
-      account: '',
-    },
+    user: {},
   },
 
   effects: {
-    *query({ payload }, { call, put }) {},
+    *selectTokenEffects({ payload }, { call, put }) {},
   },
   reducers: {
-    save(state, action) {
-      state.user = action.payload;
-    },
+    selectTokenReducers(state, actions) {},
   },
   subscriptions: {},
 };
