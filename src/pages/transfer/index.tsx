@@ -5,11 +5,19 @@ import { TokenImage } from '@/components/TokenImage';
 import { useHistory, useModel } from 'umi';
 import switchImg from '@/assets/transfer/switch.png';
 import ChianImage from '@/components/ChainImage';
+import { useWeb3React } from '@web3-react/core';
+import TransferHooks from './hooks';
 import './index.less';
 
 export default function Transfer() {
   const history = useHistory();
   const { searchToken } = useModel('useSelectModel', (data) => data);
+  const { chainArr, switchChainId } = useModel(
+    'useTransferModel',
+    (data) => data,
+  );
+  const { fromData } = TransferHooks();
+
   const go = (path: string) => history.push(path);
 
   return (
@@ -17,7 +25,7 @@ export default function Transfer() {
       <div className="from-box">
         <div className="title">From</div>
         <div className="logo">
-          <ChianImage chainId={256} />
+          <ChianImage chainId={chainArr[0]} />
         </div>
         <div className="select" onClick={() => go('/select')}>
           <TokenImage token={searchToken} />
@@ -35,11 +43,13 @@ export default function Transfer() {
           </div>
           <div className="right">
             <div>Available balance</div>
-            <div>3.26BTC</div>
+            <div>
+              {fromData.availableBalance} {searchToken.symbol}
+            </div>
           </div>
         </div>
 
-        <div className="switch">
+        <div className="switch" onClick={switchChainId}>
           <img src={switchImg} alt="" />
           <div>Switch</div>
         </div>
@@ -49,14 +59,14 @@ export default function Transfer() {
         <div className="title">To</div>
         <div className="to-details">
           <div>
-            <ChianImage chainId={3} />
+            <ChianImage chainId={chainArr[1]} />
           </div>
           <div>
             <span>Available balance</span>
-            <span>324,542,65 DX</span>
+            <span>324,542,65 ETH</span>
           </div>
         </div>
-        <div className="fee">Estimated transfer fee: ~{9999999} DX</div>
+        <div className="fee">Estimated transfer fee: ~{9999999} WETH</div>
       </div>
 
       <ErrorComponent

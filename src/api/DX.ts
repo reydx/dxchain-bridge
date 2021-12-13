@@ -5,7 +5,7 @@ import { AbiItem } from 'web3-utils';
 const contract = new web3.eth.Contract(abi as AbiItem[]);
 
 export const getBalance = async (
-  account: string = '',
+  account: string | null | undefined = '',
   tokenAddress: string = '',
 ): Promise<string> => {
   contract.options.address = tokenAddress;

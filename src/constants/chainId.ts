@@ -8,7 +8,7 @@ export const HTCHAINID = {
   TESTNET: 256,
 };
 
-export const ChainId = [ETHCHAINID[REACT_NET], HTCHAINID[REACT_NET]];
+export const ChainId = [HTCHAINID[REACT_NET], ETHCHAINID[REACT_NET]];
 
 export const ChainName = {
   [ETHCHAINID.MAINNET]: 'Ethereum',
