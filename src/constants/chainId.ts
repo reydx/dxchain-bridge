@@ -10,9 +10,10 @@ export const HTCHAINID = {
 
 export const ChainId = [HTCHAINID[REACT_NET], ETHCHAINID[REACT_NET]];
 
-export const ChainName = {
-  [ETHCHAINID.MAINNET]: 'Ethereum',
-  [ETHCHAINID.TESTNET]: 'Ropsten',
-  [HTCHAINID.MAINNET]: 'Hecochain',
-  [HTCHAINID.TESTNET]: 'Hecochain-testnet',
+export const otherChainId = (currentChainId: number | undefined): number => {
+  if (currentChainId) {
+    return ChainId.filter((item) => item !== currentChainId)[0];
+  } else {
+    return ChainId[1];
+  }
 };

@@ -16,7 +16,7 @@ export default function Transfer() {
     'useTransferModel',
     (data) => data,
   );
-  const { fromData } = TransferHooks();
+  const { fromData, toData } = TransferHooks();
 
   const go = (path: string) => history.push(path);
 
@@ -38,8 +38,8 @@ export default function Transfer() {
 
         <div className="details">
           <div className="left">
-            <div>Estimated value</div>
-            <div>~US$0.00</div>
+            {/* <div>Estimated value</div>
+            <div>~US$0.00</div> */}
           </div>
           <div className="right">
             <div>Available balance</div>
@@ -63,7 +63,9 @@ export default function Transfer() {
           </div>
           <div>
             <span>Available balance</span>
-            <span>324,542,65 ETH</span>
+            <span>
+              {toData.availableBalance} {searchToken.symbol}
+            </span>
           </div>
         </div>
         <div className="fee">Estimated transfer fee: ~{9999999} WETH</div>

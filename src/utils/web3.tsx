@@ -2,18 +2,21 @@ import Web3 from 'web3';
 import { notification } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import { sleep } from '@/utils/common';
+import { networkConf } from '@/constants/netWork';
 
 export const GAS_LIMIT = {
   GENERAL: 510000,
   SNX: 850000,
 };
 
-export const provider = window?.ethereum;
+export const { ethereum }: any = window;
 
-const web3 = new Web3(provider);
+export const getWeb3 = () => new Web3(ethereum);
 
-export const getWeb3 = () => {
-  return web3;
+export const getHttpWeb3 = (chainId: number) => {
+  return new Web3(
+    new Web3.providers.HttpProvider(networkConf[chainId].rpcUrls[0]),
+  );
 };
 
 export const awaitTransaction = async (
@@ -30,7 +33,7 @@ export const awaitTransaction = async (
     });
 
   while (txReceipt === null) {
-    const r = await web3.eth.getTransactionReceipt(txHash);
+    const r = await getWeb3().eth.getTransactionReceipt(txHash);
     txReceipt = r;
     if (r) {
       notification.destroy();
@@ -43,5 +46,3 @@ export const awaitTransaction = async (
   }
   return txReceipt;
 };
-
-export default web3;

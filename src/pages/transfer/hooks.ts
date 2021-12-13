@@ -7,16 +7,27 @@ export default function TransferHooks() {
   const { chainId, library, account } = useWeb3React();
   const { searchToken } = useModel('useSelectModel', (m) => m);
   const { chainArr, switchChainId } = useModel('useTransferModel', (m) => m);
-  const { getTokenBalance } = useCommonHooks();
+  const { getTokenBalance, getOtherChainTokenBalance } = useCommonHooks();
   const [fromData, setFromData] = useState({
     availableBalance: '0',
     EstimatedValue: '0',
+  });
+  const [toData, setToData] = useState({
+    availableBalance: '0',
+    fee: '0',
   });
 
   const getFromData = () => {
     getTokenBalance(searchToken).then((res) => {
       setFromData({
         ...fromData,
+        availableBalance: res,
+      });
+    });
+
+    getOtherChainTokenBalance(searchToken).then((res) => {
+      setToData({
+        ...toData,
         availableBalance: res,
       });
     });
@@ -30,6 +41,7 @@ export default function TransferHooks() {
   }, [chainId]);
 
   return {
+    toData,
     fromData,
     getTokenBalance,
   };

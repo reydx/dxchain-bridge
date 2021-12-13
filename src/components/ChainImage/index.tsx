@@ -1,4 +1,4 @@
-import { ChainName } from '@/constants/chainId';
+import { networkConf } from '@/constants/netWork';
 import './index.less';
 
 type Props = {
@@ -9,8 +9,8 @@ export default function ChianImage(props: Props) {
   const { chainId } = props;
   return (
     <div className="token-image">
-      <img src={`/chains/${ChainName[chainId]}.png`} alt="" />
-      {ChainName[chainId]}
+      <img src={`/chains/${networkConf[chainId].chainName}.png`} alt="" />
+      {networkConf[chainId].chainName}
     </div>
   );
 }

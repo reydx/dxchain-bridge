@@ -1,14 +1,14 @@
-import web3 from '@/utils/web3';
 import abi from '@/constants/abi/DX.json';
-import { AbiItem } from 'web3-utils';
-
-const contract = new web3.eth.Contract(abi as AbiItem[]);
+import { getContract, getOtherChainContract } from './contract';
 
 export const getBalance = async (
   account: string | null | undefined = '',
   tokenAddress: string = '',
+  chainId?: number,
 ): Promise<string> => {
-  contract.options.address = tokenAddress;
+  const contract = chainId
+    ? getOtherChainContract(abi, tokenAddress, chainId)
+    : getContract(abi, tokenAddress);
   const result = await contract.methods.balanceOf(account).call();
   return result;
 };

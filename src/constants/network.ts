@@ -8,10 +8,10 @@ const SCAN_ADDRESS = {
   [HTCHAINID.TESTNET]: 'https://scan-testnet.hecochain.com',
 };
 
-const networkConf = {
+export const networkConf = {
   [ETHCHAINID.TESTNET]: {
-    chainId: numberToHex(3),
-    chainName: 'Ropsten 测试网络',
+    chainId: numberToHex(ETHCHAINID.TESTNET),
+    chainName: 'Ropsten',
     nativeCurrency: {
       name: 'ETH',
       symbol: 'ETH',
@@ -21,8 +21,8 @@ const networkConf = {
     blockExplorerUrls: [SCAN_ADDRESS[ETHCHAINID.TESTNET]],
   },
   [HTCHAINID.TESTNET]: {
-    chainId: numberToHex(256),
-    chainName: 'hecochain-testnet',
+    chainId: numberToHex(HTCHAINID.TESTNET),
+    chainName: 'Hecochain-testnet',
     nativeCurrency: {
       name: 'ETH',
       symbol: 'ETH',
