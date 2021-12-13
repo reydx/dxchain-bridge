@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useWeb3React } from '@web3-react/core';
 import { useModel } from 'umi';
 import useCommonHooks from '@/hooks/useCommonHooks';

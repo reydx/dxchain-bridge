@@ -12,7 +12,7 @@ import './index.less';
 export default function Transfer() {
   const history = useHistory();
   const { searchToken } = useModel('useSelectModel', (data) => data);
-  const { chainArr, switchChainId } = useModel(
+  const { input, chainArr, switchChainId, inputChange, maxHandle } = useModel(
     'useTransferModel',
     (data) => data,
   );
@@ -32,8 +32,12 @@ export default function Transfer() {
           <DownOutlined className="icon" />
         </div>
         <div className="num">
-          <Input type="number" />
-          <span>Max</span>
+          <Input
+            value={input}
+            type="number"
+            onChange={(v) => inputChange(v.target.value, fromData)}
+          />
+          <span onClick={() => maxHandle(fromData)}>Max</span>
         </div>
 
         <div className="details">
