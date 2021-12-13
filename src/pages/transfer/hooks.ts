@@ -24,7 +24,9 @@ export default function TransferHooks() {
         availableBalance: res,
       });
     });
+  };
 
+  const getToData = () => {
     getOtherChainTokenBalance(searchToken).then((res) => {
       setToData({
         ...toData,
@@ -38,6 +40,7 @@ export default function TransferHooks() {
       switchChainId();
     }
     getFromData();
+    getToData();
   }, [chainId]);
 
   return {

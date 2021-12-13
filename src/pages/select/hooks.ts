@@ -37,13 +37,15 @@ export default function selectHooks() {
           });
           break;
         default:
-          if (account)
-            await getBalance(account, list[key].address).then((res) => {
-              copy[key] = {
-                ...copy[key],
-                balance: `${formatCurrency(res, 6)}`,
-              };
-            });
+          if (account && chainId)
+            await getBalance(account, list[key].addressConfig[chainId]).then(
+              (res) => {
+                copy[key] = {
+                  ...copy[key],
+                  balance: `${formatCurrency(res, 6)}`,
+                };
+              },
+            );
           break;
       }
     }
@@ -54,8 +56,17 @@ export default function selectHooks() {
   const searchChange = (v: { target: { value: string } }) => {
     const searchValue = v.target.value.toLocaleUpperCase();
     const filterList = defaultTokenList.filter((item) => {
-      if (searchValue && searchValue[0] === '0' && item.address) {
-        return item.address.toLocaleUpperCase().indexOf(searchValue) === 0;
+      if (
+        searchValue &&
+        chainId &&
+        searchValue[0] === '0' &&
+        item.addressConfig[chainId]
+      ) {
+        return (
+          item.addressConfig[chainId]
+            .toLocaleUpperCase()
+            .indexOf(searchValue) === 0
+        );
       } else {
         return item.symbol.toLocaleUpperCase().indexOf(searchValue) === 0;
       }

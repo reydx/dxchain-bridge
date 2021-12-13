@@ -6,6 +6,7 @@ export const getBalance = async (
   tokenAddress: string = '',
   chainId?: number,
 ): Promise<string> => {
+  console.log(`chainId`, tokenAddress);
   const contract = chainId
     ? getOtherChainContract(abi, tokenAddress, chainId)
     : getContract(abi, tokenAddress);

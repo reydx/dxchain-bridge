@@ -15,7 +15,8 @@ export default function useCommonHooks() {
         balance = await library?.eth.getBalance(account);
         break;
       default:
-        balance = await getBalance(account, token.address);
+        if (chainId)
+          balance = await getBalance(account, token.addressConfig[chainId]);
         break;
     }
     return formatCurrency(balance, 6);
@@ -33,7 +34,7 @@ export default function useCommonHooks() {
         if (account) balance = await getHttpWeb3(id)?.eth.getBalance(account);
         break;
       default:
-        balance = await getBalance(account, token.address, chainId);
+        balance = await getBalance(account, token.addressConfig[id], id);
         break;
     }
     return formatCurrency(balance, 6);

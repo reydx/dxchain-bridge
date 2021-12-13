@@ -5,11 +5,11 @@ interface SerializedTokenList {
 }
 
 export interface SerializedToken {
-  chainId?: number;
+  // chainId?: number;
   addressConfig: {
     [chainId: number]: string;
   };
-  address?: string;
+  // address?: string;
   balance?: string;
   decimals: number;
   symbol: string;
@@ -44,7 +44,7 @@ export const TokensConfig: SerializedTokenList = {
   DAI: {
     addressConfig: {
       [ETHCHAINID.MAINNET]: '0xcA7bBEC6839965aC8dfe077b52EBB6519fFFe155',
-      [ETHCHAINID.TESTNET]: '0xF52e0412EfdB49a7782CeD1EE7b4f8F3395A8b95',
+      [ETHCHAINID.TESTNET]: '0xad6d458402f60fd3bd25163575031acdce07538d',
       [HTCHAINID.MAINNET]: '0x66a79d23e58475d2738179ca52cd0b41d73f0bea',
       [HTCHAINID.TESTNET]: '0x60d64Ef311a4F0E288120543A14e7f90E76304c6',
     },
@@ -60,8 +60,8 @@ export const tokens = (chainId: number | undefined) => {
     defaultTokens = Object.keys(TokensConfig).reduce(
       (pre: SerializedToken[], current) => {
         const symbol = { ...TokensConfig[current] };
-        symbol.chainId = symbol.chainId;
-        symbol.address = symbol.addressConfig[chainId];
+        // symbol.chainId = symbol.chainId;
+        // symbol.address = symbol.addressConfig[chainId];
         return [...pre, symbol];
       },
       [],
