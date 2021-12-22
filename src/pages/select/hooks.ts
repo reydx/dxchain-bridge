@@ -1,83 +1,50 @@
-import { useState, useCallback, useEffect, SetStateAction } from 'react';
+import { useState, useCallback } from 'react';
 import { useWeb3React } from '@web3-react/core';
-import { SerializedToken, tokens, TokensConfig } from '@/constants/tokens';
 import { formatCurrency } from '@/utils/currency';
 import { getBalance } from '@/api/DX';
+import { SerializedToken } from '@/models/useGetState';
+import { useModel } from 'umi';
+import useCommonHooks from '@/hooks/useCommonHooks';
+import { isETHChain } from '@/constants/chainId';
 
 export default function selectHooks() {
   const { chainId, library, account } = useWeb3React();
-  const [defaultTokenList, setDefaultTokenList] = useState<SerializedToken[]>(
-    [],
-  );
+  const { tokens, setTokens } = useModel('useGetState', (data) => data);
+  const { getAllChainTokenBalance } = useCommonHooks();
   const [searchTokenList, setSearchTokenList] = useState<SerializedToken[]>([]);
 
-  const getAllTokens = useCallback(
-    (setSearchList = false) => {
-      const defaultTokens = tokens(chainId);
-      setDefaultTokenList(defaultTokens);
-      getAllBalance(defaultTokens, setSearchList);
-      return defaultTokens;
-    },
-    [chainId],
-  );
-
-  const getAllBalance = async (
-    list: SerializedToken[],
-    setSearchList = false,
-  ) => {
-    const copy = [...list];
-    for (const key in list) {
-      switch (list[key].symbol) {
-        case 'ETH':
-          await library.eth.getBalance(account).then((res: string) => {
-            copy[key] = {
-              ...copy[key],
-              balance: `${formatCurrency(res, 6)}`,
-            };
-          });
-          break;
-        default:
-          if (account && chainId)
-            await getBalance(account, list[key].addressConfig[chainId]).then(
-              (res) => {
-                copy[key] = {
-                  ...copy[key],
-                  balance: `${formatCurrency(res, 6)}`,
-                };
-              },
-            );
-          break;
-      }
+  const getAllBalance = async () => {
+    const copy = [...tokens];
+    for (const key in copy) {
+      await getAllChainTokenBalance(copy[key]).then((res) => {
+        copy[key] = {
+          ...copy[key],
+          ...res,
+        };
+      });
     }
-    setDefaultTokenList(copy);
-    if (setSearchList) setSearchTokenList(copy);
+    setTokens([...copy]);
+    setSearchTokenList([...copy]);
   };
 
   const searchChange = (v: { target: { value: string } }) => {
     const searchValue = v.target.value.toLocaleUpperCase();
-    const filterList = defaultTokenList.filter((item) => {
-      if (
-        searchValue &&
-        chainId &&
-        searchValue[0] === '0' &&
-        item.addressConfig[chainId]
-      ) {
-        return (
-          item.addressConfig[chainId]
-            .toLocaleUpperCase()
-            .indexOf(searchValue) === 0
-        );
+    const filterList = tokens.filter((item) => {
+      const address = isETHChain(chainId)
+        ? item.nativeContractAddress
+        : item.wrappedContractAddress;
+      if (searchValue && chainId && searchValue[0] === '0') {
+        return address.toLocaleUpperCase().indexOf(searchValue) === 0;
       } else {
-        return item.symbol.toLocaleUpperCase().indexOf(searchValue) === 0;
+        return item.assetName.toLocaleUpperCase().indexOf(searchValue) === 0;
       }
     });
     setSearchTokenList([...filterList]);
   };
 
   return {
-    defaultTokenList,
     searchTokenList,
-    getAllTokens,
     searchChange,
+    getAllBalance,
   };
 }

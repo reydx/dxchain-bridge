@@ -3,6 +3,7 @@ import { notification } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import { sleep } from '@/utils/common';
 import { networkConf } from '@/constants/netWork';
+import { ETHCHAINID, DXCHAINID } from '@/constants/chainId';
 
 export const GAS_LIMIT = {
   GENERAL: 510000,
@@ -15,7 +16,19 @@ export const getWeb3 = () => new Web3(ethereum);
 
 export const getHttpWeb3 = (chainId: number) => {
   return new Web3(
-    new Web3.providers.HttpProvider(networkConf[chainId].rpcUrls[0]),
+    new Web3.providers.HttpProvider(networkConf[chainId].rpcUrls),
+  );
+};
+
+export const getEthChainHttpWeb3 = () => {
+  return new Web3(
+    new Web3.providers.HttpProvider(networkConf[ETHCHAINID[REACT_NET]].rpcUrls),
+  );
+};
+
+export const getDxChainHttpWeb3 = () => {
+  return new Web3(
+    new Web3.providers.HttpProvider(networkConf[DXCHAINID[REACT_NET]].rpcUrls),
   );
 };
 

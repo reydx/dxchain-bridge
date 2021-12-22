@@ -1,11 +1,11 @@
-import { ETHCHAINID, HTCHAINID } from './chainId';
+import { ETHCHAINID, DXCHAINID } from './chainId';
 import Web3 from 'web3';
 
 const numberToHex = (chainId: number) => Web3.utils.numberToHex(chainId);
 
 const SCAN_ADDRESS = {
   [ETHCHAINID.TESTNET]: 'https://ropsten.etherscan.io',
-  [HTCHAINID.TESTNET]: 'https://scan-testnet.hecochain.com',
+  [DXCHAINID.TESTNET]: 'https://scan-testnet.hecochain.com',
 };
 
 export const networkConf = {
@@ -17,19 +17,19 @@ export const networkConf = {
       symbol: 'ETH',
       decimals: 18,
     },
-    rpcUrls: ['https://ropsten.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161'],
+    rpcUrls: 'https://ropsten.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161',
     blockExplorerUrls: [SCAN_ADDRESS[ETHCHAINID.TESTNET]],
   },
-  [HTCHAINID.TESTNET]: {
-    chainId: numberToHex(HTCHAINID.TESTNET),
+  [DXCHAINID.TESTNET]: {
+    chainId: numberToHex(DXCHAINID.TESTNET),
     chainName: 'Hecochain-testnet',
     nativeCurrency: {
-      name: 'ETH',
-      symbol: 'ETH',
+      name: 'HT',
+      symbol: 'HT',
       decimals: 18,
     },
-    rpcUrls: ['https://http-testnet.hecochain.com'],
-    blockExplorerUrls: [SCAN_ADDRESS[HTCHAINID.TESTNET]],
+    rpcUrls: 'https://http-testnet.hecochain.com',
+    blockExplorerUrls: [SCAN_ADDRESS[DXCHAINID.TESTNET]],
   },
 };
 

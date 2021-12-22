@@ -27,7 +27,13 @@ export default function Transfer() {
         <div className="logo">
           <ChianImage chainId={chainArr[0]} />
         </div>
-        <div className="select" onClick={() => go('/select')}>
+        <div
+          className="select"
+          onClick={() => {
+            go('/select');
+            inputChange('');
+          }}
+        >
           <TokenImage token={searchToken} />
           <DownOutlined className="icon" />
         </div>
@@ -42,13 +48,13 @@ export default function Transfer() {
 
         <div className="details">
           <div className="left">
-            {/* <div>Estimated value</div>
-            <div>~US$0.00</div> */}
+            <div>Estimated value</div>
+            <div>~US$0.00</div>
           </div>
           <div className="right">
             <div>Available balance</div>
             <div>
-              {fromData.availableBalance} {searchToken.symbol}
+              {fromData.availableBalance} {searchToken.assetName}
             </div>
           </div>
         </div>
@@ -68,7 +74,7 @@ export default function Transfer() {
           <div>
             <span>Available balance</span>
             <span>
-              {toData.availableBalance} {searchToken.symbol}
+              {toData.availableBalance} {searchToken.assetName}
             </span>
           </div>
         </div>

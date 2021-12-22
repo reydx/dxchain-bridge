@@ -3,12 +3,14 @@ export const ETHCHAINID = {
   TESTNET: 3,
 };
 
-export const HTCHAINID = {
+export const DXCHAINID = {
   MAINNET: 128,
   TESTNET: 256,
 };
 
-export const ChainId = [HTCHAINID[REACT_NET], ETHCHAINID[REACT_NET]];
+export const ChainId = [DXCHAINID[REACT_NET], ETHCHAINID[REACT_NET]];
+
+export const ETHChainIds = [ETHCHAINID.MAINNET, ETHCHAINID.TESTNET];
 
 export const otherChainId = (currentChainId: number | undefined): number => {
   if (currentChainId) {
@@ -17,3 +19,10 @@ export const otherChainId = (currentChainId: number | undefined): number => {
     return ChainId[1];
   }
 };
+
+export const isETHChain = (chainId: number | undefined) => {
+  return chainId ? ETHChainIds.indexOf(chainId) !== -1 : false;
+};
+
+export const EthChainId = ETHCHAINID[REACT_NET];
+export const DxChainId = DXCHAINID[REACT_NET];

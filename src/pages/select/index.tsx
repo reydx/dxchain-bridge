@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Input } from 'antd';
 import { CloseOutlined, LoadingOutlined } from '@ant-design/icons';
 import { TokenImage } from '@/components/TokenImage';
+import useCommonHooks from '@/hooks/useCommonHooks';
 import search from '@/assets/select/search.png';
 import { useWeb3React } from '@web3-react/core';
 import { useHistory, useModel } from 'umi';
@@ -11,13 +12,12 @@ import './index.less';
 export default function Select() {
   const history = useHistory();
   const { chainId } = useWeb3React();
-  const { searchTokenList, searchChange, getAllTokens } = selectHooks();
+  const { searchTokenList, searchChange, getAllBalance } = selectHooks();
+  const { showBalanceKey } = useCommonHooks();
   const { clickToken } = useModel('useSelectModel', (data) => data);
 
   useEffect(() => {
-    if (chainId) {
-      getAllTokens(true);
-    }
+    getAllBalance();
   }, [chainId]);
 
   return (
@@ -38,11 +38,11 @@ export default function Select() {
       <ul>
         {searchTokenList.map((item) => {
           return (
-            <li key={item.symbol} onClick={() => clickToken(history, item)}>
+            <li key={item.asset} onClick={() => clickToken(history, item)}>
               <TokenImage token={item} />
-              {item.balance ? (
+              {item[showBalanceKey] ? (
                 <div className="right">
-                  {item.balance}
+                  {item[showBalanceKey]}
                   {/* {item.symbol}.e */}
                 </div>
               ) : (

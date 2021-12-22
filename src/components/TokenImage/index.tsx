@@ -1,4 +1,4 @@
-import { SerializedToken } from '@/constants/tokens';
+import { SerializedToken } from '@/models/useGetState';
 import './index.less';
 
 type Props = {
@@ -6,22 +6,11 @@ type Props = {
 };
 
 export function TokenImage(props: Props) {
-  const {
-    token = {
-      logoURI: '',
-      symbol: '',
-    },
-  } = props;
+  const { token } = props;
   return (
     <div className="token-image">
-      <img
-        src={
-          token.logoURI ||
-          `https://pancakeswap.finance/images/tokens/${token.address}.png`
-        }
-        alt=""
-      />
-      {token.symbol}
+      <img src={`./tokens/${token.assetName}.png`} alt="" />
+      {token.assetName}
     </div>
   );
 }
