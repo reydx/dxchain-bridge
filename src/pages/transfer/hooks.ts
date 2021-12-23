@@ -5,7 +5,7 @@ import useCommonHooks from '@/hooks/useCommonHooks';
 import { otherChainId } from '@/constants/chainId';
 
 export default function TransferHooks() {
-  const { chainId, library, account } = useWeb3React();
+  const { chainId } = useWeb3React();
   const { searchToken } = useModel('useSelectModel', (m) => m);
   const { chainArr, switchChainId } = useModel('useTransferModel', (m) => m);
   const { getChainTokenBalance } = useCommonHooks();
