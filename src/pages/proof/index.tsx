@@ -122,7 +122,11 @@ export default function Proof() {
           return (
             <li key={item.symbol}>
               <div className="right">
-                <TokenImage />
+                <TokenImage
+                  token={{
+                    assetName: 'WETH',
+                  }}
+                />
                 <InfoTag
                   tTitle="Proof of Asset"
                   info={item.proofOfAssets}

@@ -16,7 +16,11 @@ export default function Transaction() {
         </div>
         <div className="t-body">
           <div>
-            <TokenImage />
+            <TokenImage
+              token={{
+                assetName: 'WETH',
+              }}
+            />
           </div>
           <div>
             <div>0.24 WETH</div>
@@ -41,7 +45,11 @@ export default function Transaction() {
             </div>
             <div className="item-content">
               <div>
-                <TokenImage />
+                <TokenImage
+                  token={{
+                    assetName: 'WETH',
+                  }}
+                />
               </div>
               <div>
                 <Progress showTime />
@@ -57,7 +65,11 @@ export default function Transaction() {
             <div className="t-note">Waiting for Ethereum</div>
             <div className="item-content">
               <div>
-                <TokenImage />
+                <TokenImage
+                  token={{
+                    assetName: 'WETH',
+                  }}
+                />
               </div>
               <div>
                 <Progress showTime />
