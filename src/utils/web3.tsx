@@ -20,15 +20,15 @@ export const getHttpWeb3 = (chainId: number) => {
   );
 };
 
-export const getEthChainHttpWeb3 = () => {
+export const getEthChainHttpWeb3 = (reactNet = REACT_NET) => {
   return new Web3(
-    new Web3.providers.HttpProvider(networkConf[ETHCHAINID[REACT_NET]].rpcUrls),
+    new Web3.providers.HttpProvider(networkConf[ETHCHAINID[reactNet]].rpcUrls),
   );
 };
 
-export const getDxChainHttpWeb3 = () => {
+export const getDxChainHttpWeb3 = (reactNet = REACT_NET) => {
   return new Web3(
-    new Web3.providers.HttpProvider(networkConf[DXCHAINID[REACT_NET]].rpcUrls),
+    new Web3.providers.HttpProvider(networkConf[DXCHAINID[reactNet]].rpcUrls),
   );
 };
 

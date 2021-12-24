@@ -5,6 +5,15 @@ import { SetStateAction, useState } from 'react';
 export default function useTransferModel() {
   const [chainArr, setchainArr] = useState([...ChainId]);
   const [input, setInput] = useState('');
+  const [fromData, setFromData] = useState({
+    availableBalance: '0',
+    EstimatedValue: '0',
+    usd: '0',
+  });
+  const [toData, setToData] = useState({
+    availableBalance: '0',
+    fee: '0',
+  });
 
   const switchChainId = () => {
     changeNetwork(chainArr[1]).then(() => {
@@ -31,6 +40,10 @@ export default function useTransferModel() {
   return {
     input,
     chainArr,
+    fromData,
+    toData,
+    setFromData,
+    setToData,
     maxHandle,
     inputChange,
     switchChainId,

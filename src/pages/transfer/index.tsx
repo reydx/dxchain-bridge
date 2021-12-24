@@ -12,11 +12,16 @@ import './index.less';
 export default function Transfer() {
   const history = useHistory();
   const { searchToken } = useModel('useSelectModel', (data) => data);
-  const { input, chainArr, switchChainId, inputChange, maxHandle } = useModel(
-    'useTransferModel',
-    (data) => data,
-  );
-  const { fromData, toData } = TransferHooks();
+  const {
+    input,
+    chainArr,
+    switchChainId,
+    inputChange,
+    maxHandle,
+    fromData,
+    toData,
+  } = useModel('useTransferModel', (data) => data);
+  const {} = TransferHooks();
 
   const go = (path: string) => history.push(path);
 
@@ -49,7 +54,7 @@ export default function Transfer() {
         <div className="details">
           <div className="left">
             <div>Estimated value</div>
-            <div>~US$0.00</div>
+            <div>~US${fromData.usd}</div>
           </div>
           <div className="right">
             <div>Available balance</div>

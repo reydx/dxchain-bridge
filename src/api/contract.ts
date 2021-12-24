@@ -23,12 +23,13 @@ export const getChainContract = (
   abi: any,
   address: string | undefined,
   isEthChain: boolean,
+  reactNet = REACT_NET,
 ) => {
   if (isEthChain) {
-    const web3Eth = getEthChainHttpWeb3();
+    const web3Eth = getEthChainHttpWeb3(reactNet);
     return new web3Eth.eth.Contract(abi, address);
   } else {
-    const web3Dx = getDxChainHttpWeb3();
+    const web3Dx = getDxChainHttpWeb3(reactNet);
     return new web3Dx.eth.Contract(abi, address);
   }
 };

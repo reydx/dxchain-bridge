@@ -1,16 +1,18 @@
 import BigNumber from 'bignumber.js';
 
 export const base = new BigNumber(10).pow(18);
+export const eight = new BigNumber(10).pow(8);
 
 export const formatCurrency = (
   amount: BigNumber | string | number | undefined,
-  digits?: number,
+  digits: number = 6,
+  num = base,
 ) => {
   try {
     if (amount) {
       const value = BigNumber.isBigNumber(amount)
         ? amount
-        : new BigNumber(amount).dividedBy(base);
+        : new BigNumber(amount).dividedBy(num);
       const result =
         typeof digits !== 'undefined'
           ? value?.toFormat(digits, 1)
@@ -23,12 +25,12 @@ export const formatCurrency = (
   return '--';
 };
 
-export const currencyToBigNumber = (value: string): BigNumber => {
-  return new BigNumber(value).dividedBy(base);
+export const currencyToBigNumber = (value: string, num = base): BigNumber => {
+  return new BigNumber(value).dividedBy(num);
 };
 
-export const amountToBigNumber = (amount: string): BigNumber => {
-  return new BigNumber(amount).multipliedBy(base);
+export const amountToBigNumber = (amount: string, num = base): BigNumber => {
+  return new BigNumber(amount).multipliedBy(num);
 };
 
 export const bigNumberToAmount = (value: BigNumber, digits: number = 18) => {

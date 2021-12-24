@@ -23,7 +23,13 @@ interface SerializedTokenObjects {
 
 export default function useGetState() {
   const { setSearchToken } = useModel('useSelectModel', (m) => m);
-  const [Data, setData] = useState({ critical: { assets: {} } });
+  const [Data, setData] = useState({
+    critical: { assets: {} },
+    nonCritical: {
+      chainlinkDxUsdFeedAddress: '',
+      chainlinkEthUsdFeedAddress: '',
+    },
+  });
   const [tokens, setTokens] = useState<SerializedToken[]>([]);
 
   const fetchData = async () => {

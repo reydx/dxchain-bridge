@@ -9,6 +9,7 @@ const SCAN_ADDRESS = {
 };
 
 export const networkConf = {
+  // ETH - TEST
   [ETHCHAINID.TESTNET]: {
     chainId: numberToHex(ETHCHAINID.TESTNET),
     chainName: 'Ropsten',
@@ -20,6 +21,7 @@ export const networkConf = {
     rpcUrls: 'https://ropsten.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161',
     blockExplorerUrls: [SCAN_ADDRESS[ETHCHAINID.TESTNET]],
   },
+  // DX - TEST
   [DXCHAINID.TESTNET]: {
     chainId: numberToHex(DXCHAINID.TESTNET),
     chainName: 'Hecochain-testnet',
@@ -29,6 +31,30 @@ export const networkConf = {
       decimals: 18,
     },
     rpcUrls: 'https://http-testnet.hecochain.com',
+    blockExplorerUrls: [SCAN_ADDRESS[DXCHAINID.TESTNET]],
+  },
+  // ETH - MAIN
+  [ETHCHAINID.MAINNET]: {
+    chainId: numberToHex(ETHCHAINID.MAINNET),
+    chainName: 'Ethereum',
+    nativeCurrency: {
+      name: 'ETH',
+      symbol: 'ETH',
+      decimals: 18,
+    },
+    rpcUrls: 'https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161',
+    blockExplorerUrls: [SCAN_ADDRESS[ETHCHAINID.TESTNET]],
+  },
+  // DX - MAIN
+  [DXCHAINID.MAINNET]: {
+    chainId: numberToHex(DXCHAINID.MAINNET),
+    chainName: 'Heco',
+    nativeCurrency: {
+      name: 'HT',
+      symbol: 'HT',
+      decimals: 18,
+    },
+    rpcUrls: 'https://http-mainnet.hecochain.com/',
     blockExplorerUrls: [SCAN_ADDRESS[DXCHAINID.TESTNET]],
   },
 };

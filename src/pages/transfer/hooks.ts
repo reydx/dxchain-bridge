@@ -3,27 +3,26 @@ import { useWeb3React } from '@web3-react/core';
 import { useModel } from 'umi';
 import useCommonHooks from '@/hooks/useCommonHooks';
 import { otherChainId } from '@/constants/chainId';
+import useUSDPrice from '@/hooks/useUSDPrice';
 
 export default function TransferHooks() {
-  const { chainId } = useWeb3React();
+  const { chainId, account } = useWeb3React();
   const { searchToken } = useModel('useSelectModel', (m) => m);
-  const { chainArr, switchChainId } = useModel('useTransferModel', (m) => m);
+  const { chainArr, fromData, toData, switchChainId, setFromData, setToData } =
+    useModel('useTransferModel', (m) => m);
   const { getChainTokenBalance } = useCommonHooks();
-  const [fromData, setFromData] = useState({
-    availableBalance: '0',
-    EstimatedValue: '0',
-  });
-  const [toData, setToData] = useState({
-    availableBalance: '0',
-    fee: '0',
-  });
+  const { getUSDPrice } = useUSDPrice();
 
-  const getFromData = () => {
-    getChainTokenBalance(searchToken, chainId).then((res) => {
-      setFromData({
-        ...fromData,
-        availableBalance: res,
-      });
+  const getFromData = async () => {
+    const [availableBalance, usd] = await Promise.all([
+      getChainTokenBalance(searchToken, chainId),
+      getUSDPrice(searchToken),
+    ]);
+
+    setFromData({
+      ...fromData,
+      availableBalance,
+      usd,
     });
   };
 
@@ -44,8 +43,5 @@ export default function TransferHooks() {
     getToData();
   }, [chainId]);
 
-  return {
-    toData,
-    fromData,
-  };
+  return {};
 }
