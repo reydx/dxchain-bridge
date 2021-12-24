@@ -2,7 +2,7 @@ import Web3 from 'web3';
 import { notification } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import { sleep } from '@/utils/common';
-import { networkConf } from '@/constants/netWork';
+import { networkConf } from '@/constants/network';
 import { ETHCHAINID, DXCHAINID } from '@/constants/chainId';
 
 export const GAS_LIMIT = {

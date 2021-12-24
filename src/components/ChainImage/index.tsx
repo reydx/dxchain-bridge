@@ -1,4 +1,4 @@
-import { networkConf } from '@/constants/netWork';
+import { networkConf } from '@/constants/network';
 import './index.less';
 
 type Props = {

@@ -1,5 +1,5 @@
 import { ChainId } from '@/constants/chainId';
-import { changeNetwork } from '@/constants/netWork';
+import { changeNetwork } from '@/constants/network';
 import { SetStateAction, useState } from 'react';
 
 export default function useTransferModel() {

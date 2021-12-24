@@ -2,9 +2,9 @@ import { SerializedToken } from '@/models/useGetState';
 import './index.less';
 
 type Props = {
-  token: any;
+  token: SerializedToken;
 };
-// SerializedToken
+
 export function TokenImage(props: Props) {
   const { token } = props;
   return (
