@@ -5,7 +5,7 @@ import { TokenImage } from '@/components/TokenImage';
 import { useHistory, useModel } from 'umi';
 import switchImg from '@/assets/transfer/switch.png';
 import ChianImage from '@/components/ChainImage';
-import { useWeb3React } from '@web3-react/core';
+import useTransfer from '@/hooks/useTransfer';
 import TransferHooks from './hooks';
 import './index.less';
 
@@ -21,6 +21,7 @@ export default function Transfer() {
     fromData,
     toData,
   } = useModel('useTransferModel', (data) => data);
+  const { transaction } = useTransfer();
   const {} = TransferHooks();
 
   const go = (path: string) => history.push(path);
@@ -83,18 +84,17 @@ export default function Transfer() {
             </span>
           </div>
         </div>
-        <div className="fee">Estimated transfer fee: ~{9999999} WETH</div>
+        <div className="fee">Estimated transfer fee: ~{0.0009} WETH</div>
       </div>
 
-      <ErrorComponent
-        errMsg={'Insufficient balance to cover gas costs. Please add ETH.'}
-      />
+      <ErrorComponent />
 
       <Button
         type="primary"
         block
         className="transfer-btn"
-        onClick={() => go('/confirm')}
+        onClick={transaction}
+        // disabled={!input}
       >
         Transfer
       </Button>

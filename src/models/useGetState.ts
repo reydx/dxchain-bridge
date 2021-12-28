@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import bridgeSeeting from '@/constants/abi/bridge_settings_1.json';
 import { useModel } from 'umi';
 
 export interface SerializedToken {
@@ -7,13 +8,13 @@ export interface SerializedToken {
   chainlinkFeedAddress: string;
   denomination: number;
   nativeContractAddress: string;
-  nativeNetwork: 'ethereum';
+  nativeNetwork: 'ethereum' | string;
   nativeBalance?: string;
   offboardFeeDollars: number;
   onboardFeeDollars: number;
   tokenName: string;
   wrappedContractAddress: string;
-  wrappedNetwork: 'dxchain';
+  wrappedNetwork: 'dxchain' | string;
   wrappedBalance?: string;
 }
 
@@ -23,13 +24,7 @@ interface SerializedTokenObjects {
 
 export default function useGetState() {
   const { setSearchToken } = useModel('useSelectModel', (m) => m);
-  const [Data, setData] = useState({
-    critical: { assets: {} },
-    nonCritical: {
-      chainlinkDxUsdFeedAddress: '',
-      chainlinkEthUsdFeedAddress: '',
-    },
-  });
+  const [Data, setData] = useState({ ...bridgeSeeting });
   const [tokens, setTokens] = useState<SerializedToken[]>([]);
 
   const fetchData = async () => {

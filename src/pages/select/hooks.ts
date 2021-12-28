@@ -4,13 +4,13 @@ import { formatCurrency } from '@/utils/currency';
 import { getBalance } from '@/api/DX';
 import { SerializedToken } from '@/models/useGetState';
 import { useModel } from 'umi';
-import useCommonHooks from '@/hooks/useCommonHooks';
+import useBalance from '@/hooks/useBalance';
 import { isETHChain } from '@/constants/chainId';
 
 export default function selectHooks() {
   const { chainId, library, account } = useWeb3React();
   const { tokens, setTokens } = useModel('useGetState', (data) => data);
-  const { getAllChainTokenBalance } = useCommonHooks();
+  const { getAllChainTokenBalance } = useBalance();
   const [searchTokenList, setSearchTokenList] = useState<SerializedToken[]>([]);
 
   const getAllBalance = async () => {

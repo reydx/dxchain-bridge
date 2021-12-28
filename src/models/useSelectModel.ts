@@ -1,23 +1,12 @@
 import { SetStateAction, useState } from 'react';
 import { useModel } from 'umi';
 import { SerializedToken } from './useGetState';
+import bridgeSeeting from '@/constants/abi/bridge_settings_1.json';
 
 export default function useSelectModel() {
-  const [searchToken, setSearchToken] = useState<SerializedToken>({
-    asset: '',
-    assetName: '',
-    chainlinkFeedAddress: '',
-    denomination: 18,
-    nativeContractAddress: '',
-    nativeNetwork: 'ethereum',
-    nativeBalance: '0',
-    offboardFeeDollars: 15,
-    onboardFeeDollars: 3,
-    tokenName: '',
-    wrappedContractAddress: '',
-    wrappedNetwork: 'dxchain',
-    wrappedBalance: '0',
-  });
+  const [searchToken, setSearchToken] = useState<SerializedToken>(
+    bridgeSeeting.critical.assets.WETH,
+  );
 
   const clickToken = (history: any, token: SerializedToken) => {
     setSearchToken(token);

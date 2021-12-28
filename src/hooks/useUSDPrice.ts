@@ -37,7 +37,7 @@ export default function useUSDPrice() {
     } catch (error) {
       console.log(`error`, error);
     }
-    console.log(`price`, price);
+    // console.log(`price`, price);
     return formatCurrency(price, 2, eight);
   };
 

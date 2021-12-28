@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Input } from 'antd';
 import { CloseOutlined, LoadingOutlined } from '@ant-design/icons';
 import { TokenImage } from '@/components/TokenImage';
-import useCommonHooks from '@/hooks/useCommonHooks';
+import useBalance from '@/hooks/useBalance';
 import search from '@/assets/select/search.png';
 import { useWeb3React } from '@web3-react/core';
 import { useHistory, useModel } from 'umi';
@@ -13,7 +13,7 @@ export default function Select() {
   const history = useHistory();
   const { chainId } = useWeb3React();
   const { searchTokenList, searchChange, getAllBalance } = selectHooks();
-  const { showBalanceKey } = useCommonHooks();
+  const { showBalanceKey } = useBalance();
   const { clickToken } = useModel('useSelectModel', (data) => data);
 
   useEffect(() => {
