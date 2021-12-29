@@ -8,6 +8,7 @@ import { useWeb3React } from '@web3-react/core';
 import { useHistory, useModel } from 'umi';
 import selectHooks from './hooks';
 import './index.less';
+import { formatCurrency } from '@/utils/currency';
 
 export default function Select() {
   const history = useHistory();
@@ -40,9 +41,9 @@ export default function Select() {
           return (
             <li key={item.asset} onClick={() => clickToken(history, item)}>
               <TokenImage token={item} />
-              {item[showBalanceKey] ? (
+              {item[showBalanceKey] !== undefined ? (
                 <div className="right">
-                  {item[showBalanceKey]}
+                  {formatCurrency(item[showBalanceKey], 6)}
                   {/* {item.symbol}.e */}
                 </div>
               ) : (

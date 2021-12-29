@@ -3,6 +3,7 @@ import abi from '@/constants/abi/WETH.json';
 import { amountToBigNumber } from '@/utils/currency';
 import { isETHChain } from '@/constants/chainId';
 import { SerializedToken } from '@/models/useGetState';
+import { awaitTransaction } from '@/utils/web3';
 
 type transactionApiType = {
   account: string | null | undefined;
@@ -41,10 +42,12 @@ export const transferApi = async (props: transactionApiType) => {
   };
   return await contract.methods
     .transfer(walletAddress, amountToBigNumber(amount))
-    .send(params, (err: any, txHash: any) => {
+    .send(params, async (err: any, txHash: any) => {
       if (err) {
         errorCallback();
       } else {
+        console.log(`111`, 111);
+        await awaitTransaction(txHash);
         console.log(`txHash`, txHash);
         return txHash;
       }

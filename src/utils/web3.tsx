@@ -34,7 +34,7 @@ export const getDxChainHttpWeb3 = (reactNet = REACT_NET) => {
 
 export const awaitTransaction = async (
   txHash: string,
-  notify: boolean = true,
+  notify: boolean = false,
 ) => {
   let txReceipt = null;
 
@@ -44,7 +44,7 @@ export const awaitTransaction = async (
       icon: <LoadingOutlined style={{ fontSize: 24 }} spin />,
       duration: null,
     });
-
+  console.log(`txReceipt`, txReceipt);
   while (txReceipt === null) {
     const r = await getWeb3().eth.getTransactionReceipt(txHash);
     txReceipt = r;

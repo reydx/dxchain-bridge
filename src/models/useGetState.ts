@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import bridgeSeeting from '@/constants/abi/bridge_settings_1.json';
 import { useModel } from 'umi';
+import BigNumber from 'bignumber.js';
 
 export interface SerializedToken {
   asset: string;
@@ -9,13 +10,13 @@ export interface SerializedToken {
   denomination: number;
   nativeContractAddress: string;
   nativeNetwork: 'ethereum' | string;
-  nativeBalance?: string;
+  nativeBalance?: BigNumber;
   offboardFeeDollars: number;
   onboardFeeDollars: number;
   tokenName: string;
   wrappedContractAddress: string;
   wrappedNetwork: 'dxchain' | string;
-  wrappedBalance?: string;
+  wrappedBalance?: BigNumber;
 }
 
 interface SerializedTokenObjects {

@@ -18,8 +18,6 @@ export default function Login() {
       if (history.location.pathname === '/login') {
         history.push('/');
       }
-    } else {
-      history.push('/login');
     }
   }, [account]);
 
