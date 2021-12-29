@@ -1,18 +1,15 @@
-import React from 'react';
 import Note from '@/components/Note';
 import meatMaskLogoW from '@/assets/common/meatMask-logo-w.png';
-import { useHistory } from 'umi';
 import './index.less';
 
 export default function Confirm() {
-  const history = useHistory();
   return (
     <div className="confirm-page">
       <Note
         msg={'Transferring ETH over the bridge requires two transactions'}
       />
 
-      <div className="box" onClick={() => history.push('/wrapping')}>
+      <div className="box">
         <div className="title">Wrapping your ETH</div>
         <img src={meatMaskLogoW} alt="" />
         <div>

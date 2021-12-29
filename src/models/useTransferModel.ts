@@ -1,18 +1,19 @@
 import { ChainId } from '@/constants/chainId';
 import { changeNetwork } from '@/constants/network';
-import { SetStateAction, useState } from 'react';
+import BigNumber from 'bignumber.js';
+import { SetStateAction, useEffect, useState } from 'react';
 
 export default function useTransferModel() {
   const [chainArr, setchainArr] = useState([...ChainId]);
   const [input, setInput] = useState('');
   const [fromData, setFromData] = useState({
-    availableBalance: '0',
-    EstimatedValue: '0',
-    usd: '0',
+    availableBalance: new BigNumber(0),
+    EstimatedValue: new BigNumber(0),
+    usd: new BigNumber(0),
   });
   const [toData, setToData] = useState({
-    availableBalance: '0',
-    fee: '0',
+    availableBalance: new BigNumber(0),
+    fee: new BigNumber(0),
   });
 
   const switchChainId = () => {
@@ -31,9 +32,7 @@ export default function useTransferModel() {
     // }
   };
 
-  const maxHandle = (fromData: {
-    availableBalance: SetStateAction<string>;
-  }) => {
+  const maxHandle = (fromData: any) => {
     setInput(fromData.availableBalance);
   };
 

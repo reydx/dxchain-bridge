@@ -1,19 +1,18 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import { useWeb3React } from '@web3-react/core';
-import { formatCurrency } from '@/utils/currency';
-import { getBalance } from '@/api/DX';
 import { SerializedToken } from '@/models/useGetState';
 import { useModel } from 'umi';
 import useBalance from '@/hooks/useBalance';
 import { isETHChain } from '@/constants/chainId';
 
 export default function selectHooks() {
-  const { chainId, library, account } = useWeb3React();
+  const { chainId } = useWeb3React();
   const { tokens, setTokens } = useModel('useGetState', (data) => data);
   const { getAllChainTokenBalance } = useBalance();
   const [searchTokenList, setSearchTokenList] = useState<SerializedToken[]>([]);
 
   const getAllBalance = async () => {
+    setSearchTokenList([...tokens]);
     const copy = [...tokens];
     for (const key in copy) {
       await getAllChainTokenBalance(copy[key]).then((res) => {

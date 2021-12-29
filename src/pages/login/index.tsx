@@ -5,16 +5,23 @@ import metaMaskImg from '@/assets/login/metaMask.png';
 import ErrorComponent from '@/components/Error';
 import useAuth from '@/hooks/useAuth';
 import './index.less';
+import { useWeb3React } from '@web3-react/core';
 
 export default function Login() {
+  const { account } = useWeb3React();
   const auth = useAuth();
   const history = useHistory();
 
   useEffect(() => {
-    if (auth.account) {
+    if (account) {
       history.goBack();
+      if (history.location.pathname === '/login') {
+        history.push('/');
+      }
+    } else {
+      history.push('/login');
     }
-  }, [auth.account]);
+  }, [account]);
 
   return (
     <div className="login">

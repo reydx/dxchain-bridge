@@ -11,7 +11,6 @@ export default function useTransfer() {
   const { routerPush } = useCommonHooks();
 
   const transaction = async () => {
-    if (!input || input === '0') return;
     await transferApi({
       token: searchToken,
       account,
@@ -20,6 +19,8 @@ export default function useTransfer() {
       amount: input,
       callback: () => routerPush('/confirm'),
       errorCallback: () => routerPush('/'),
+    }).then((res) => {
+      console.log(`res`, res);
     });
   };
 

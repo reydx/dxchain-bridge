@@ -1,7 +1,7 @@
 import { useModel } from 'umi';
 import { SerializedToken } from '@/models/useGetState';
 import { getUSDPriceApi } from '@/api/ChainLink';
-import { eight, formatCurrency } from '@/utils/currency';
+import { currencyToBigNumber, eight } from '@/utils/currency';
 import { ETHCHAINID } from '@/constants/chainId';
 
 export default function useUSDPrice() {
@@ -38,7 +38,7 @@ export default function useUSDPrice() {
       console.log(`error`, error);
     }
     // console.log(`price`, price);
-    return formatCurrency(price, 2, eight);
+    return currencyToBigNumber(price, eight);
   };
 
   return {

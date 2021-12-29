@@ -8,9 +8,10 @@ import ChianImage from '@/components/ChainImage';
 import useTransfer from '@/hooks/useTransfer';
 import TransferHooks from './hooks';
 import './index.less';
+import useCommonHooks from '@/hooks/useCommonHooks';
+import { eight, formatCurrency } from '@/utils/currency';
 
 export default function Transfer() {
-  const history = useHistory();
   const { searchToken } = useModel('useSelectModel', (data) => data);
   const {
     input,
@@ -22,9 +23,8 @@ export default function Transfer() {
     toData,
   } = useModel('useTransferModel', (data) => data);
   const { transaction } = useTransfer();
-  const {} = TransferHooks();
-
-  const go = (path: string) => history.push(path);
+  const { routerPush } = useCommonHooks();
+  const { inputDisabled } = TransferHooks();
 
   return (
     <div className="transfer">
@@ -36,7 +36,7 @@ export default function Transfer() {
         <div
           className="select"
           onClick={() => {
-            go('/select');
+            routerPush('/select');
             inputChange('');
           }}
         >
@@ -47,7 +47,7 @@ export default function Transfer() {
           <Input
             value={input}
             type="number"
-            onChange={(v) => inputChange(v.target.value, fromData)}
+            onChange={(v) => inputChange(v.target.value)}
           />
           <span onClick={() => maxHandle(fromData)}>Max</span>
         </div>
@@ -55,12 +55,13 @@ export default function Transfer() {
         <div className="details">
           <div className="left">
             <div>Estimated value</div>
-            <div>~US${fromData.usd}</div>
+            <div>~US${formatCurrency(fromData.usd, 2)}</div>
           </div>
           <div className="right">
             <div>Available balance</div>
             <div>
-              {fromData.availableBalance} {searchToken.assetName}
+              {formatCurrency(fromData.availableBalance, 6)}
+              {searchToken.assetName}
             </div>
           </div>
         </div>
@@ -80,7 +81,8 @@ export default function Transfer() {
           <div>
             <span>Available balance</span>
             <span>
-              {toData.availableBalance} {searchToken.assetName}
+              {formatCurrency(toData.availableBalance, 6)}
+              {searchToken.assetName}
             </span>
           </div>
         </div>
@@ -94,17 +96,17 @@ export default function Transfer() {
         block
         className="transfer-btn"
         onClick={transaction}
-        // disabled={!input}
+        disabled={inputDisabled}
       >
         Transfer
       </Button>
 
       <div className="bottom">
-        <div onClick={() => go('/convert')}>
+        <div onClick={() => routerPush('/convert')}>
           Convert AEB assets
           <RightOutlined className="icon" />
         </div>
-        <div onClick={() => go('/proof')}>
+        <div onClick={() => routerPush('/proof')}>
           Proof of assets
           <RightOutlined className="icon" />
         </div>

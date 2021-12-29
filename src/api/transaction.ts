@@ -39,13 +39,14 @@ export const transferApi = async (props: transactionApiType) => {
   const params = {
     from: account,
   };
-  await contract.methods
+  return await contract.methods
     .transfer(walletAddress, amountToBigNumber(amount))
     .send(params, (err: any, txHash: any) => {
       if (err) {
         errorCallback();
       } else {
         console.log(`txHash`, txHash);
+        return txHash;
       }
     });
 };
