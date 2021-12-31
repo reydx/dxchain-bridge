@@ -68,6 +68,8 @@ export default function transactionHooks() {
       startFirst();
       const percent = Number(((data / 35) * 100).toFixed(2));
       setPercent1(percent);
+    } else if (data > 35) {
+      setPercent1(100);
     }
     if (data === 35) endFirst();
   }, [Data, info]);
