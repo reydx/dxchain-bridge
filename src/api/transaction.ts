@@ -12,6 +12,7 @@ type transactionApiType = {
   jsonConfig: any;
   token: SerializedToken;
   callback: () => void;
+  successCallback: (txHash: string) => void;
   errorCallback: () => void;
 };
 
@@ -24,6 +25,7 @@ export const transferApi = async (props: transactionApiType) => {
     token,
     callback,
     errorCallback,
+    successCallback,
   } = props;
   const {
     critical: {
@@ -46,9 +48,7 @@ export const transferApi = async (props: transactionApiType) => {
       if (err) {
         errorCallback();
       } else {
-        console.log(`111`, 111);
-        await awaitTransaction(txHash);
-        console.log(`txHash`, txHash);
+        successCallback(txHash);
         return txHash;
       }
     });

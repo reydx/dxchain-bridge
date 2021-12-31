@@ -1,10 +1,17 @@
 import React from 'react';
+import { useModel } from 'umi';
 import { TokenImage } from '@/components/TokenImage';
 import meatMaskLogoW from '@/assets/common/meatMask-logo-w.png';
-import './index.less';
 import Progress from '@/components/Progress';
+import { useWeb3React } from '@web3-react/core';
+import ChianImage from '@/components/ChainImage';
+import transactionHooks from './hooks';
+import './index.less';
+import { formatCurrency } from '@/utils/currency';
 
 export default function Transaction() {
+  const { info, percent1, timeFirst }: any = transactionHooks();
+
   return (
     <div className="transaction-page">
       <div className="title">Transaction Status</div>
@@ -16,15 +23,13 @@ export default function Transaction() {
         </div>
         <div className="t-body">
           <div>
-            <TokenImage
-              token={{
-                assetName: 'WETH',
-              }}
-            />
+            <TokenImage token={info.token} />
           </div>
           <div>
-            <div>0.24 WETH</div>
-            <div>~US$876.78</div>
+            <div>
+              {formatCurrency(info.ammount)} {info.token.assetName}
+            </div>
+            <div>~US${formatCurrency(info.price, 2)}</div>
           </div>
           <div>
             <img src={meatMaskLogoW} alt="" />
@@ -45,18 +50,16 @@ export default function Transaction() {
             </div>
             <div className="item-content">
               <div>
-                <TokenImage
-                  token={{
-                    assetName: 'WETH',
-                  }}
-                />
+                <ChianImage chainId={info.tChainId} />
               </div>
               <div>
-                <Progress showTime />
+                <Progress percent={percent1} time={timeFirst} />
               </div>
               <div>
-                <div>0.4455624 WETH</div>
-                <div>~US$876.78</div>
+                <div>
+                  {formatCurrency(info.gas, 7)} {info.token.assetName}
+                </div>
+                <div>~US${formatCurrency(info.gasPrice, 2)}</div>
               </div>
             </div>
           </div>
@@ -65,14 +68,10 @@ export default function Transaction() {
             <div className="t-note">Waiting for Ethereum</div>
             <div className="item-content">
               <div>
-                <TokenImage
-                  token={{
-                    assetName: 'WETH',
-                  }}
-                />
+                <ChianImage chainId={info.oChainId} />
               </div>
               <div>
-                <Progress showTime />
+                <Progress percent={0} />
               </div>
             </div>
           </div>

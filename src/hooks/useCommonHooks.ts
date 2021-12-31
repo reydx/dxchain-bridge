@@ -1,10 +1,11 @@
-import { useHistory } from 'umi';
+import { history } from 'umi';
 
 export default function useCommonHooks() {
-  const history = useHistory();
-
-  const routerPush = (path: string, state?: unknown) =>
-    history.push(path, state);
+  const routerPush = (pathname: string, query?: any) =>
+    history.push({
+      pathname,
+      query,
+    });
 
   return {
     routerPush,

@@ -30,12 +30,26 @@ export default function useGetState() {
 
   const fetchData = async () => {
     try {
-      const res = await Promise.all([
+      const [r1, r2, r3] = await Promise.all([
         (await fetch(FETCH_URLS[0])).json(),
         (await fetch(FETCH_URLS[1])).json(),
         (await fetch(FETCH_URLS[2])).json(),
       ]);
-      setData(res[0]);
+
+      const r1LastSennBlock =
+        r1.nonCritical.networkViews.ethereum.lastSeenBlock;
+      const r2LastSennBlock =
+        r2.nonCritical.networkViews.ethereum.lastSeenBlock;
+      const r3LastSennBlock =
+        r3.nonCritical.networkViews.ethereum.lastSeenBlock;
+
+      const m = r1LastSennBlock > r2LastSennBlock ? r1 : r2;
+      const max =
+        m.nonCritical.networkViews.ethereum.lastSeenBlock > r3LastSennBlock
+          ? m
+          : r3;
+
+      setData(max);
     } catch (error) {
       console.error('Unable to fetch data:', error);
     }
@@ -54,6 +68,17 @@ export default function useGetState() {
     return defaultTokens;
   };
 
+  const tokenAddressToTokenInfo = (address: string): any => {
+    if (!address) return {};
+    const currentToken = address.toLocaleUpperCase();
+    const result = tokens.filter((item) => {
+      const n = item.nativeContractAddress.toLocaleUpperCase();
+      const w = item.wrappedContractAddress.toLocaleUpperCase();
+      return n === currentToken || w === currentToken;
+    });
+    return result.length ? result[0] : {};
+  };
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -61,7 +86,7 @@ export default function useGetState() {
   useEffect(() => {
     const id = setInterval(() => {
       fetchData();
-    }, 60000);
+    }, 15000);
     return () => clearInterval(id);
   }, [setData]);
 
@@ -74,5 +99,6 @@ export default function useGetState() {
     tokens,
     setTokens,
     fetchData,
+    tokenAddressToTokenInfo,
   };
 }

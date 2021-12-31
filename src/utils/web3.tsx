@@ -44,7 +44,6 @@ export const awaitTransaction = async (
       icon: <LoadingOutlined style={{ fontSize: 24 }} spin />,
       duration: null,
     });
-  console.log(`txReceipt`, txReceipt);
   while (txReceipt === null) {
     const r = await getWeb3().eth.getTransactionReceipt(txHash);
     txReceipt = r;
@@ -58,4 +57,9 @@ export const awaitTransaction = async (
     await sleep(2000);
   }
   return txReceipt;
+};
+
+export const awaitGetBlockTransactionCount = async (txHash: string) => {
+  const r = await getWeb3().eth.getTransaction(txHash);
+  return r;
 };

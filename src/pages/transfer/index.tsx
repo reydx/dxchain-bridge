@@ -22,7 +22,7 @@ export default function Transfer() {
     fromData,
     toData,
   } = useModel('useTransferModel', (data) => data);
-  const { transaction } = useTransfer();
+  const { transaction, loading } = useTransfer();
   const { routerPush } = useCommonHooks();
   const { inputDisabled } = TransferHooks();
 
@@ -55,7 +55,7 @@ export default function Transfer() {
         <div className="details">
           <div className="left">
             <div>Estimated value</div>
-            <div>~US${formatCurrency(fromData.usd, 2)}</div>
+            <div>~US${formatCurrency(fromData.usd.times(input || 0), 2)}</div>
           </div>
           <div className="right">
             <div>Available balance</div>
@@ -92,11 +92,12 @@ export default function Transfer() {
       <ErrorComponent />
 
       <Button
-        type="primary"
         block
-        className="transfer-btn"
+        type="primary"
+        loading={loading}
         onClick={transaction}
         disabled={inputDisabled}
+        className="transfer-btn"
       >
         Transfer
       </Button>

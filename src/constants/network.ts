@@ -24,7 +24,7 @@ export const networkConf = {
   // DX - TEST
   [DXCHAINID.TESTNET]: {
     chainId: numberToHex(DXCHAINID.TESTNET),
-    chainName: 'Hecochain-testnet',
+    chainName: 'Dxchain',
     nativeCurrency: {
       name: 'HT',
       symbol: 'HT',
@@ -48,7 +48,7 @@ export const networkConf = {
   // DX - MAIN
   [DXCHAINID.MAINNET]: {
     chainId: numberToHex(DXCHAINID.MAINNET),
-    chainName: 'Heco',
+    chainName: 'Dxchain',
     nativeCurrency: {
       name: 'HT',
       symbol: 'HT',

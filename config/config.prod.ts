@@ -11,8 +11,8 @@ export default defineConfig({
     REACT_NET: 'MAINNET',
     FETCH_URLS: [
       'https://alpha-dxchain-bridge.s3.ap-southeast-1.amazonaws.com/bridge_settings_1.json',
-      'https://alpha-dxchain-bridge.s3.ap-southeast-1.amazonaws.com/bridge_settings_1.json',
-      'https://alpha-dxchain-bridge.s3.ap-southeast-1.amazonaws.com/bridge_settings_1.json',
+      'https://alpha-dxchain-bridge.s3.ap-southeast-1.amazonaws.com/bridge_settings_2.json',
+      'https://alpha-dxchain-bridge.s3.ap-southeast-1.amazonaws.com/bridge_settings_3.json',
     ],
     REACT_APP_NODE_1: 'https://bsc-dataseed.binance.org',
   },

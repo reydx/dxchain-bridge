@@ -43,5 +43,17 @@ export function getCenterSubStr(
 /**
  * @description: sleep
  */
-export const sleep = (ms: number) =>
+export const sleep = (ms: number) => {
   new Promise((resolve) => setTimeout(resolve, ms));
+};
+
+const formatNumber = (value: number): string => {
+  if (value >= 10) return String(value);
+  return '0' + value;
+};
+
+export const secondToHS = (second: number) => {
+  const m = Math.floor(second / 60);
+  const s = Math.floor(second % 60);
+  return `${formatNumber(m)}:${formatNumber(s)}`;
+};
