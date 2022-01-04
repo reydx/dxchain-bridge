@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import bridgeSeeting from '@/constants/abi/bridge_settings_1.json';
 import { useModel } from 'umi';
 import BigNumber from 'bignumber.js';
+import { DXCHAINID, ETHCHAINID } from '@/constants/chainId';
 
 export interface SerializedToken {
   asset: string;
@@ -79,6 +80,14 @@ export default function useGetState() {
     return result.length ? result[0] : {};
   };
 
+  const transactionChainId = (token: SerializedToken, toAddress: string) => {
+    if (token.nativeContractAddress.toUpperCase() === toAddress.toUpperCase()) {
+      return ETHCHAINID[REACT_NET];
+    } else {
+      return DXCHAINID[REACT_NET];
+    }
+  };
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -99,6 +108,7 @@ export default function useGetState() {
     tokens,
     setTokens,
     fetchData,
+    transactionChainId,
     tokenAddressToTokenInfo,
   };
 }

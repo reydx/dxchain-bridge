@@ -54,12 +54,19 @@ export const awaitTransaction = async (
           message: 'Done',
         });
     }
+    console.log(`r`, r);
     await sleep(2000);
   }
   return txReceipt;
 };
 
 export const awaitGetBlockTransactionCount = async (txHash: string) => {
-  const r = await getWeb3().eth.getTransaction(txHash);
-  return r;
+  let txReceipt = null;
+  while (txReceipt === null) {
+    const r = await getWeb3().eth.getTransaction(txHash);
+    console.log(`r1`, r);
+    txReceipt = r;
+    await sleep(2000);
+  }
+  return txReceipt;
 };

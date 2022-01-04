@@ -9,7 +9,10 @@ import BigNumber from 'bignumber.js';
 import useTimer from '@/hooks/useTimer';
 
 export default function transactionHooks() {
-  const { tokenAddressToTokenInfo, Data } = useModel('useGetState', (m) => m);
+  const { tokenAddressToTokenInfo, Data, transactionChainId } = useModel(
+    'useGetState',
+    (m) => m,
+  );
   const [percent1, setPercent1] = useState(0);
   const { start: startFirst, time: timeFirst, end: endFirst } = useTimer();
   const { getUSDPrice } = useUSDPrice();
@@ -22,23 +25,19 @@ export default function transactionHooks() {
     const query: any = history.location.query || {};
     const txHash = query.txHash;
     if (!txHash) history.push('/');
-    const [r1, r2]: any = await Promise.all([
-      awaitTransaction(txHash),
-      awaitGetBlockTransactionCount(txHash),
-    ]);
+    const [r1]: any = await Promise.all([awaitTransaction(txHash)]);
     const ammount = currencyToBigNumber(
       Web3.utils.hexToNumberString(r1.logs[0].data),
     );
     const token = tokenAddressToTokenInfo(r1.to);
     const usPrice = await getUSDPrice(token);
     const price = usPrice.times(ammount);
-    console.log(`r1`, r1);
     const effectiveGasPrice = Web3.utils.hexToNumber(r1.effectiveGasPrice);
     const gas = new BigNumber(effectiveGasPrice)
       .times(r1.gasUsed)
       .dividedBy(new BigNumber(10).pow(token.denomination));
     const gasPrice = usPrice.times(gas);
-    const tChainId = Web3.utils.hexToNumber(r2.chainId);
+    const tChainId = transactionChainId(token, r1.to);
     const oChainId = otherChainId(tChainId);
 
     setInfo({

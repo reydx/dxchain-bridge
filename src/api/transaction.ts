@@ -41,6 +41,7 @@ export const transferApi = async (props: transactionApiType) => {
   const contract = getContract(abi, tokenAddress);
   const params = {
     from: account,
+    gas: 510000,
   };
   return await contract.methods
     .transfer(walletAddress, amountToBigNumber(amount))
