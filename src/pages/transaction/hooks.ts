@@ -62,7 +62,7 @@ export default function transactionHooks() {
       ? ethereumLastSeenBlock
       : dxchainLastSeenBlock;
     const blockNumber = info.blockNumber;
-    const data = blockNumber - currentLastSeenBlock;
+    const data = currentLastSeenBlock - blockNumber;
     if (data > 0 && data <= 35) {
       startFirst();
       const percent = Number(((data / 35) * 100).toFixed(2));
