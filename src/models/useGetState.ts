@@ -31,11 +31,14 @@ export default function useGetState() {
 
   const fetchData = async () => {
     try {
-      const [r1, r2, r3] = await Promise.all([
-        (await fetch(FETCH_URLS[0])).json(),
-        (await fetch(FETCH_URLS[1])).json(),
-        (await fetch(FETCH_URLS[2])).json(),
+      const [res1, res2, res3] = await Promise.all([
+        fetch(FETCH_URLS[0], { cache: 'no-store' }),
+        fetch(FETCH_URLS[1], { cache: 'no-store' }),
+        fetch(FETCH_URLS[2], { cache: 'no-store' }),
       ]);
+      const r1 = await res1.json();
+      const r2 = await res2.json();
+      const r3 = await res3.json();
 
       const r1LastSennBlock =
         r1.nonCritical.networkViews.ethereum.lastSeenBlock;
@@ -95,7 +98,7 @@ export default function useGetState() {
   useEffect(() => {
     const id = setInterval(() => {
       fetchData();
-    }, 15000);
+    }, 10000);
     return () => clearInterval(id);
   }, [setData]);
 

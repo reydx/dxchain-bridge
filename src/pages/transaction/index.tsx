@@ -10,7 +10,8 @@ import './index.less';
 import { formatCurrency } from '@/utils/currency';
 
 export default function Transaction() {
-  const { info, percent1, timeFirst }: any = transactionHooks();
+  const { info, percent1, percent2, timeFirst, timeSecond }: any =
+    transactionHooks();
 
   return (
     <div className="transaction-page">
@@ -71,7 +72,7 @@ export default function Transaction() {
                 <ChianImage chainId={info.oChainId} />
               </div>
               <div>
-                <Progress percent={0} />
+                <Progress percent={percent2} time={timeSecond} />
               </div>
             </div>
           </div>

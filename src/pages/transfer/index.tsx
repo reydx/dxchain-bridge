@@ -103,10 +103,10 @@ export default function Transfer() {
       </Button>
 
       <div className="bottom">
-        <div onClick={() => routerPush('/convert')}>
+        {/* <div onClick={() => routerPush('/convert')}>
           Convert AEB assets
           <RightOutlined className="icon" />
-        </div>
+        </div> */}
         <div onClick={() => routerPush('/proof')}>
           Proof of assets
           <RightOutlined className="icon" />

@@ -41,6 +41,7 @@ export default function useTransferModel() {
     chainArr,
     fromData,
     toData,
+    setInput,
     setFromData,
     setToData,
     maxHandle,

@@ -1,13 +1,15 @@
 import { getContract } from './contract';
-import abi from '@/constants/abi/WETH.json';
+import ethAbi from '@/constants/abi/WETH.json';
+import dxErc20Abi from '@/constants/abi/DXERC20.json';
 import { amountToBigNumber } from '@/utils/currency';
-import { isETHChain } from '@/constants/chainId';
+import { isETHChain, otherChainId } from '@/constants/chainId';
 import { SerializedToken } from '@/models/useGetState';
-import { awaitTransaction } from '@/utils/web3';
+import Web3 from 'web3';
+import BigNumber from 'bignumber.js';
 
 type transactionApiType = {
   account: string | null | undefined;
-  chainId: number | undefined;
+  chainId: number;
   amount: string;
   jsonConfig: any;
   token: SerializedToken;
@@ -33,24 +35,42 @@ export const transferApi = async (props: transactionApiType) => {
     },
   } = jsonConfig;
   callback();
+  const isEth = isETHChain(chainId);
   const { nativeContractAddress, wrappedContractAddress } = token;
-  const tokenAddress = isETHChain(chainId)
-    ? nativeContractAddress
-    : wrappedContractAddress;
-  const walletAddress = isETHChain(chainId) ? ethereum : dxchain;
+  const tokenAddress = isEth ? nativeContractAddress : wrappedContractAddress;
+  const walletAddress = isEth ? ethereum : dxchain;
+  const abi = isEth ? ethAbi : dxErc20Abi;
   const contract = getContract(abi, tokenAddress);
-  const params = {
-    from: account,
-    gas: 510000,
-  };
-  return await contract.methods
-    .transfer(walletAddress, amountToBigNumber(amount))
-    .send(params, async (err: any, txHash: any) => {
-      if (err) {
-        errorCallback();
-      } else {
-        successCallback(txHash);
-        return txHash;
-      }
-    });
+
+  if (isEth) {
+    const params = {
+      from: account,
+      gas: 510000,
+    };
+    return await contract.methods
+      .transfer(walletAddress, amountToBigNumber(amount))
+      .send(params, async (err: any, txHash: any) => {
+        if (err) {
+          errorCallback();
+        } else {
+          successCallback(txHash);
+          return txHash;
+        }
+      });
+  } else {
+    const params = {
+      from: account,
+      gas: 510000,
+    };
+    return await contract.methods
+      .unwrap(amountToBigNumber(amount), otherChainId(chainId))
+      .send(params, async (err: any, txHash: any) => {
+        if (err) {
+          errorCallback();
+        } else {
+          successCallback(txHash);
+          return txHash;
+        }
+      });
+  }
 };
