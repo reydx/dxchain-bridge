@@ -5,7 +5,7 @@ import { amountToBigNumber } from '@/utils/currency';
 import { isETHChain, otherChainId } from '@/constants/chainId';
 import { SerializedToken } from '@/models/useGetState';
 import { getEthChainHttpWeb3 } from '@/utils/web3';
-import { getBalanceAmount } from '@/utils/formatBalance';
+import { getBalanceAmount, getDecimalAmount } from '@/utils/formatBalance';
 import BigNumber from 'bignumber.js';
 
 type transactionApiType = {
@@ -54,16 +54,19 @@ export const transferApi = async (props: transactionApiType) => {
       `amountToBigNumber(amount)`,
       amountToBigNumber(amount).toNumber(),
     );
-    // return await contract.methods
-    //   .transfer(walletAddress, amountToBigNumber(amount))
-    //   .send(params, async (err: any, txHash: any) => {
-    //     if (err) {
-    //       errorCallback();
-    //     } else {
-    //       successCallback(txHash);
-    //       return txHash;
-    //     }
-    //   });
+    return await contract.methods
+      .transfer(
+        walletAddress,
+        getDecimalAmount(new BigNumber(amount), token.denomination),
+      )
+      .send(params, async (err: any, txHash: any) => {
+        if (err) {
+          errorCallback();
+        } else {
+          successCallback(txHash);
+          return txHash;
+        }
+      });
   } else {
     const params = {
       from: account,
