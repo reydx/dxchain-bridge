@@ -68,7 +68,7 @@ export const transferApi = async (props: transactionApiType) => {
     };
     return await contract.methods
       .unwrap(
-        getDecimalAmount(new BigNumber(amount), token.denomination),
+        getDecimalAmount(new BigNumber(amount), token.denomination).toString(),
         otherChainId(chainId),
       )
       .send(params, async (err: any, txHash: any) => {
@@ -105,7 +105,7 @@ export const ethGasFee = async (props: ethGasFeeType) => {
 
     const estimateGas = ethContract.methods.transfer(
       account,
-      amountToBigNumber(input),
+      amountToBigNumber(input).toString(),
     ).estimateGas;
 
     const [gasPrice, gasUsed] = await Promise.all([
