@@ -24,11 +24,13 @@ export default function transactionHooks() {
   const [timeSecond, settTimeSecond] = useState(0);
   const timeRefId1: any = useRef();
   const timeRefId2: any = useRef();
+  const timeRefId3: any = useRef();
 
   const startFirst = () => {
     if (timeRefId1.current) return;
     timeRefId1.current = setInterval(() => {
       settTimeFirst((time) => time + 1);
+      console.log(`111`, 111);
     }, 1000);
   };
 
@@ -40,6 +42,7 @@ export default function transactionHooks() {
     if (timeRefId2.current) return;
     timeRefId2.current = setInterval(() => {
       settTimeSecond((time) => time + 1);
+      console.log(`222`, 222);
     }, 1000);
   };
 
@@ -114,7 +117,7 @@ export default function transactionHooks() {
 
   useEffect(() => {
     const { otherChainBlock, oChainId, token, from, txHash } = info;
-    const id = setInterval(async () => {
+    timeRefId3.current = setInterval(async () => {
       if (oChainId && otherChainBlock) {
         const tokenAddress = isETHChain(oChainId)
           ? token.nativeContractAddress
@@ -143,14 +146,15 @@ export default function transactionHooks() {
         });
       }
     }, 3000);
-    return () => clearInterval(id);
+    return () => clearInterval(timeRefId3.current);
   }, [info]);
 
   useEffect(() => {
     init();
     startFirst();
+
     return () => {
-      startFirst();
+      endFirst();
       endSecond();
     };
   }, []);
