@@ -48,16 +48,22 @@ export const transferApi = async (props: transactionApiType) => {
       from: account,
       gas: 510000,
     };
-    return await contract.methods
-      .transfer(walletAddress, amountToBigNumber(amount))
-      .send(params, async (err: any, txHash: any) => {
-        if (err) {
-          errorCallback();
-        } else {
-          successCallback(txHash);
-          return txHash;
-        }
-      });
+    console.log(`amount`, amount);
+    console.log(`amountToBigNumber(amount)`, amountToBigNumber(amount));
+    console.log(
+      `amountToBigNumber(amount)`,
+      amountToBigNumber(amount).toNumber(),
+    );
+    // return await contract.methods
+    //   .transfer(walletAddress, amountToBigNumber(amount))
+    //   .send(params, async (err: any, txHash: any) => {
+    //     if (err) {
+    //       errorCallback();
+    //     } else {
+    //       successCallback(txHash);
+    //       return txHash;
+    //     }
+    //   });
   } else {
     const params = {
       from: account,
