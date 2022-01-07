@@ -1,4 +1,4 @@
-import { getContract } from './contract';
+import { getChainContract, getContract } from './contract';
 import ethAbi from '@/constants/abi/WETH.json';
 import dxErc20Abi from '@/constants/abi/DXERC20.json';
 import { amountToBigNumber } from '@/utils/currency';
@@ -6,6 +6,8 @@ import { isETHChain, otherChainId } from '@/constants/chainId';
 import { SerializedToken } from '@/models/useGetState';
 import Web3 from 'web3';
 import BigNumber from 'bignumber.js';
+import { getEthChainHttpWeb3 } from '@/utils/web3';
+import { getBalanceAmount } from '@/utils/formatBalance';
 
 type transactionApiType = {
   account: string | null | undefined;
@@ -73,4 +75,43 @@ export const transferApi = async (props: transactionApiType) => {
         }
       });
   }
+};
+
+type ethGasFeeType = {
+  token: SerializedToken;
+  input: string;
+  jsonConfig: any;
+  account: string | undefined | null;
+};
+
+export const ethGasFee = async (props: ethGasFeeType) => {
+  const { token, input, jsonConfig, account } = props;
+
+  let gasFee = new BigNumber(0);
+
+  if (input !== '' && Number(input) > 0 && account) {
+    const ethGetPrice = getEthChainHttpWeb3().eth.getGasPrice;
+
+    const ethContract = getChainContract(
+      ethAbi,
+      token.nativeContractAddress,
+      true,
+    );
+
+    const estimateGas = ethContract.methods.transfer(
+      account,
+      amountToBigNumber(input),
+    ).estimateGas;
+
+    const [gasPrice, gasUsed] = await Promise.all([
+      ethGetPrice(),
+      estimateGas({
+        from: jsonConfig.critical.walletAddress.ethereum,
+      }),
+    ]);
+
+    gasFee = new BigNumber(gasPrice).times(gasUsed);
+  }
+
+  return new BigNumber(getBalanceAmount(gasFee, token.denomination));
 };

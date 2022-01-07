@@ -13,6 +13,11 @@ export default function transactionHooks() {
     'useGetState',
     (m) => m,
   );
+  const { getUSDPrice } = useUSDPrice();
+  const [info, setInfo] = useState<any>({
+    token: {},
+    tChainId: undefined,
+  });
   const [percent1, setPercent1] = useState(0);
   const [percent2, setPercent2] = useState(0);
   const [timeFirst, settTimeFirst] = useState(0);
@@ -41,12 +46,6 @@ export default function transactionHooks() {
   const endSecond = () => {
     if (timeRefId2.current) clearInterval(timeRefId2.current);
   };
-
-  const { getUSDPrice } = useUSDPrice();
-  const [info, setInfo] = useState<any>({
-    token: {},
-    tChainId: undefined,
-  });
 
   const init = async () => {
     const query: any = history.location.query || {};

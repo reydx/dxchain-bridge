@@ -1,47 +1,56 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import { useWeb3React } from '@web3-react/core';
 import { useModel } from 'umi';
 import useBalance from '@/hooks/useBalance';
-import { otherChainId } from '@/constants/chainId';
+import { isETHChain, otherChainId } from '@/constants/chainId';
 import useUSDPrice from '@/hooks/useUSDPrice';
+import { SerializedToken } from '@/models/useGetState';
 import BigNumber from 'bignumber.js';
-import { eight } from '@/utils/currency';
+import { ethGasFee } from '@/api/transaction';
 
 export default function TransferHooks() {
   const { chainId, account } = useWeb3React();
   const { searchToken } = useModel('useSelectModel', (m) => m);
-  const {
-    chainArr,
-    fromData,
-    toData,
-    switchChainId,
-    setFromData,
-    setToData,
-    input,
-  } = useModel('useTransferModel', (m) => m);
+  const { Data } = useModel('useGetState', (m) => m);
+  const { chainArr, transferData, switchChainId, setTransferData, input } =
+    useModel('useTransferModel', (m) => m);
   const { getChainTokenBalance } = useBalance();
-  const { getUSDPrice } = useUSDPrice();
+  const { getUSDPrice, getEthUsdPrice } = useUSDPrice();
   const [inputDisabled, setinputDisabled] = useState(true);
 
-  const getFromData = async () => {
-    const [availableBalance, usd] = await Promise.all([
-      getChainTokenBalance(searchToken, chainId),
-      getUSDPrice(searchToken),
-    ]);
-
-    setFromData({
-      ...fromData,
-      availableBalance,
-      usd,
-    });
+  const estimatedTransferFee = async (
+    token: SerializedToken,
+    usd: BigNumber,
+  ) => {
+    let fee = new BigNumber(0);
+    if (isETHChain(chainArr[0])) {
+      fee = new BigNumber(token.onboardFeeDollars).div(usd);
+    } else {
+      const [gasFee, ethUsdPrice] = await Promise.all([
+        ethGasFee({ token, input, jsonConfig: Data, account }),
+        getEthUsdPrice(),
+      ]);
+      const gas = gasFee.times(ethUsdPrice);
+      fee = new BigNumber(token.offboardFeeDollars).plus(gas).div(usd);
+    }
+    return fee;
   };
 
-  const getToData = () => {
-    getChainTokenBalance(searchToken, otherChainId(chainId)).then((res) => {
-      setToData({
-        ...toData,
-        availableBalance: res,
-      });
+  const init = async () => {
+    const [availableBalanceFrom, usd, availableBalanceTo] = await Promise.all([
+      getChainTokenBalance(searchToken, chainId),
+      getUSDPrice(searchToken),
+      getChainTokenBalance(searchToken, otherChainId(chainId)),
+    ]);
+
+    const fee = await estimatedTransferFee(searchToken, usd);
+
+    setTransferData({
+      ...transferData,
+      availableBalanceFrom,
+      availableBalanceTo,
+      usd,
+      fee,
     });
   };
 
@@ -49,16 +58,26 @@ export default function TransferHooks() {
     if (chainArr[0] !== chainId) {
       switchChainId();
     }
-    getFromData();
-    getToData();
+    init();
   }, [chainId]);
 
   useEffect(() => {
-    const isNAN = !Number(input);
-    const isNegativeNum = Number(input) <= 0;
-    const LackOfBalance = Number(input) > fromData.availableBalance.toNumber();
-    setinputDisabled(isNAN || isNegativeNum || LackOfBalance);
-  }, [input, fromData]);
+    estimatedTransferFee(searchToken, transferData.usd).then((fee) => {
+      setTransferData({ ...transferData, fee });
+    });
+  }, [input]);
+
+  useEffect(() => {
+    const num = Number(input);
+    const isNAN = !num;
+    const isNegativeNum = num <= 0;
+    const LackOfBalance = num > transferData.availableBalanceFrom.toNumber();
+    const isGreaterThanGasFee = num > transferData.fee.toNumber();
+
+    setinputDisabled(
+      isNAN || isNegativeNum || LackOfBalance || isGreaterThanGasFee,
+    );
+  }, [input, transferData]);
 
   return {
     inputDisabled,

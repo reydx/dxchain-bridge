@@ -9,7 +9,7 @@ import useTransfer from '@/hooks/useTransfer';
 import TransferHooks from './hooks';
 import './index.less';
 import useCommonHooks from '@/hooks/useCommonHooks';
-import { eight, formatCurrency } from '@/utils/currency';
+import { formatCurrency } from '@/utils/currency';
 
 export default function Transfer() {
   const { searchToken } = useModel('useSelectModel', (data) => data);
@@ -19,8 +19,8 @@ export default function Transfer() {
     switchChainId,
     inputChange,
     maxHandle,
-    fromData,
-    toData,
+    transferData,
+    // toData,
   } = useModel('useTransferModel', (data) => data);
   const { transaction, loading } = useTransfer();
   const { routerPush } = useCommonHooks();
@@ -49,18 +49,26 @@ export default function Transfer() {
             type="number"
             onChange={(v) => inputChange(v.target.value)}
           />
-          <span onClick={() => maxHandle(fromData)}>Max</span>
+          <span
+            onClick={() =>
+              maxHandle(transferData.availableBalanceFrom.toString())
+            }
+          >
+            Max
+          </span>
         </div>
 
         <div className="details">
           <div className="left">
             <div>Estimated value</div>
-            <div>~US${formatCurrency(fromData.usd.times(input || 0), 2)}</div>
+            <div>
+              ~US${formatCurrency(transferData.usd.times(input || 0), 2)}
+            </div>
           </div>
           <div className="right">
             <div>Available balance</div>
             <div>
-              {formatCurrency(fromData.availableBalance, 6)}
+              {formatCurrency(transferData.availableBalanceFrom, 6)}
               {searchToken.assetName}
             </div>
           </div>
@@ -81,12 +89,15 @@ export default function Transfer() {
           <div>
             <span>Available balance</span>
             <span>
-              {formatCurrency(toData.availableBalance, 6)}
+              {formatCurrency(transferData.availableBalanceTo, 6)}
               {searchToken.assetName}
             </span>
           </div>
         </div>
-        <div className="fee">Estimated transfer fee: ~{0.0009} WETH</div>
+        <div className="fee">
+          Estimated transfer fee: ~{formatCurrency(transferData.fee, 6)}{' '}
+          {searchToken.assetName}
+        </div>
       </div>
 
       <ErrorComponent />

@@ -16,7 +16,7 @@ export default function useUSDPrice() {
     try {
       switch (token.assetName) {
         case 'WETH':
-          const res = await getUSDPriceApi(
+          await getUSDPriceApi(
             Data.nonCritical.chainlinkEthUsdFeedAddress,
             chainId,
           ).then((res) => (price = res.answer));
@@ -41,7 +41,18 @@ export default function useUSDPrice() {
     return currencyToBigNumber(price, eight);
   };
 
+  const getEthUsdPrice = async () => {
+    let price = '0';
+    await getUSDPriceApi(
+      Data.nonCritical.chainlinkEthUsdFeedAddress,
+      ETHCHAINID.MAINNET,
+    ).then((res) => (price = res.answer));
+
+    return currencyToBigNumber(price, eight);
+  };
+
   return {
     getUSDPrice,
+    getEthUsdPrice,
   };
 }

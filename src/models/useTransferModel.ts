@@ -6,16 +6,13 @@ import { SetStateAction, useEffect, useState } from 'react';
 export default function useTransferModel() {
   const [chainArr, setchainArr] = useState([...ChainId]);
   const [input, setInput] = useState('');
-  const [fromData, setFromData] = useState({
-    availableBalance: new BigNumber(0),
+  const [transferData, setTransferData] = useState({
+    availableBalanceFrom: new BigNumber(0),
+    availableBalanceTo: new BigNumber(0),
     EstimatedValue: new BigNumber(0),
     usd: new BigNumber(0),
-  });
-  const [toData, setToData] = useState({
-    availableBalance: new BigNumber(0),
     fee: new BigNumber(0),
   });
-
   const switchChainId = () => {
     changeNetwork(chainArr[1]).then(() => {
       setchainArr([...chainArr.reverse()]);
@@ -25,25 +22,21 @@ export default function useTransferModel() {
 
   const inputChange = (
     v: string,
-    fromData?: { availableBalance: SetStateAction<string> },
+    transferData?: { availableBalance: SetStateAction<string> },
   ) => {
-    // if(Number(v) <= Number(fromData?.availableBalance) && Number(v) >= 0) {
+    // if(Number(v) <= Number(transferData?.availableBalance) && Number(v) >= 0) {
     setInput(v);
     // }
   };
 
-  const maxHandle = (fromData: any) => {
-    setInput(fromData.availableBalance);
-  };
+  const maxHandle = (num: string) => setInput(num);
 
   return {
     input,
     chainArr,
-    fromData,
-    toData,
+    transferData,
     setInput,
-    setFromData,
-    setToData,
+    setTransferData,
     maxHandle,
     inputChange,
     switchChainId,
