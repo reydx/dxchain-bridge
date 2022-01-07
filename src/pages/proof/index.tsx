@@ -5,14 +5,19 @@ import meatMaskLogoW from '@/assets/common/meatMask-logo-w.png';
 import copyImg from '@/assets/common/copy.png';
 import linkImg from '@/assets/common/link.png';
 import shareImg from '@/assets/common/share.png';
-import { getCenterSubStr } from '@/utils/common';
+import { copy, getCenterSubStr } from '@/utils/common';
 import { useHistory } from 'umi';
 import './index.less';
+import proofHooks from './hooks';
+import { formatCurrency } from '@/utils/currency';
+import { networkConf } from '@/constants/network';
+import { DxChainId, EthChainId } from '@/constants/chainId';
 
 type InfoTagProps = {
   info: {
-    num: number;
+    totalSupply: string;
     address: string;
+    blockBrowser: string;
   };
   tTitle: string;
   symbolName: string;
@@ -29,7 +34,7 @@ const InfoTag = (props: InfoTagProps) => {
         <div className="t-left">
           <div>
             <div>
-              {info.num} {symbolName}
+              {info.totalSupply} {symbolName}
             </div>
             <div>{getCenterSubStr(info.address)}</div>
           </div>
@@ -37,8 +42,17 @@ const InfoTag = (props: InfoTagProps) => {
             {showMetaMask && (
               <img className="meatMask-logo" src={meatMaskLogoW} alt="" />
             )}
-            <img className="copy" src={copyImg} alt="" />
-            <a href="" className="share">
+            <img
+              className="copy"
+              src={copyImg}
+              alt=""
+              onClick={() => copy(info.address)}
+            />
+            <a
+              href={`${info.blockBrowser}/token/${info.address}`}
+              className="share"
+              target="_blank"
+            >
               <img src={shareImg} alt="" />
             </a>
           </div>
@@ -55,56 +69,8 @@ const InfoTag = (props: InfoTagProps) => {
 
 export default function Proof() {
   const history = useHistory();
-  const list = [
-    {
-      symbol: 'USDT',
-      address: '',
-      proofOfAssets: {
-        num: 123213.123,
-        address: '0xe78388b41232132132132143243246b9ab0e9d0',
-      },
-      wrappedToken: {
-        num: 123213.213,
-        address: '0xe78388b41232132132132143243246b9ab0e9d0',
-      },
-      swapSupply: {
-        num: 123213.22,
-        address: '0xe78388b41232132132132143243246b9ab0e9d0',
-      },
-    },
-    {
-      symbol: 'AAVE',
-      address: '',
-      proofOfAssets: {
-        num: 123213,
-        address: '0xe78388b41232132132132143243246b9ab0e9d0',
-      },
-      wrappedToken: {
-        num: 123213,
-        address: '0xe78388b41232132132132143243246b9ab0e9d0',
-      },
-      swapSupply: {
-        num: 123213,
-        address: '0xe78388b41232132132132143243246b9ab0e9d0',
-      },
-    },
-    {
-      symbol: 'AAVE2',
-      address: '',
-      proofOfAssets: {
-        num: 123213,
-        address: '0xe78388b41232132132132143243246b9ab0e9d0',
-      },
-      wrappedToken: {
-        num: 123213,
-        address: '0xe78388b41232132132132143243246b9ab0e9d0',
-      },
-      swapSupply: {
-        num: 123213,
-        address: '0xe78388b41232132132132143243246b9ab0e9d0',
-      },
-    },
-  ];
+  const { proofList } = proofHooks();
+
   return (
     <div className="proof">
       <div className="title">
@@ -118,19 +84,19 @@ export default function Proof() {
       </div>
 
       <ul>
-        {list.map((item) => {
+        {proofList.map((item) => {
           return (
-            <li key={item.symbol}>
+            <li key={item.assetName}>
               <div className="right">
-                <TokenImage
-                  token={{
-                    assetName: 'WETH',
-                  }}
-                />
+                <TokenImage token={item} />
                 <InfoTag
                   tTitle="Proof of Asset"
-                  info={item.proofOfAssets}
-                  symbolName={item.symbol}
+                  info={{
+                    totalSupply: formatCurrency(item.nativeTotalSupply),
+                    address: item.nativeContractAddress,
+                    blockBrowser: networkConf[EthChainId].blockExplorerUrls,
+                  }}
+                  symbolName={item.assetName}
                   showLink
                   showMetaMask
                 />
@@ -138,14 +104,18 @@ export default function Proof() {
               <div className="left">
                 <InfoTag
                   tTitle="Wrapped Token"
-                  symbolName={`${item.symbol}.e`}
-                  info={item.wrappedToken}
+                  symbolName={`${item.assetName}.dx`}
+                  info={{
+                    totalSupply: formatCurrency(item.wrappedTotalSupply),
+                    address: item.wrappedContractAddress,
+                    blockBrowser: networkConf[DxChainId].blockExplorerUrls,
+                  }}
                 />
-                <InfoTag
+                {/* <InfoTag
                   tTitle="Wrapped Token"
                   symbolName={`${item.symbol}.e`}
                   info={item.swapSupply}
-                />
+                /> */}
               </div>
             </li>
           );

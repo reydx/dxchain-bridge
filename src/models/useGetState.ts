@@ -12,12 +12,14 @@ export interface SerializedToken {
   nativeContractAddress: string;
   nativeNetwork: 'ethereum' | string;
   nativeBalance?: BigNumber;
+  nativeTotalSupply?: BigNumber;
   offboardFeeDollars: number;
   onboardFeeDollars: number;
   tokenName: string;
   wrappedContractAddress: string;
   wrappedNetwork: 'dxchain' | string;
   wrappedBalance?: BigNumber;
+  wrappedTotalSupply?: BigNumber;
 }
 
 interface SerializedTokenObjects {

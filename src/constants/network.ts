@@ -5,7 +5,9 @@ const numberToHex = (chainId: number) => Web3.utils.numberToHex(chainId);
 
 const SCAN_ADDRESS = {
   [ETHCHAINID.TESTNET]: 'https://ropsten.etherscan.io',
-  [DXCHAINID.TESTNET]: 'https://scan-testnet.hecochain.com',
+  [DXCHAINID.TESTNET]: 'https://testnet.hecoinfo.com/',
+  [ETHCHAINID.MAINNET]: 'https://etherscan.io',
+  [DXCHAINID.MAINNET]: 'https://hecoinfo.com',
 };
 
 export const networkConf = {
@@ -19,7 +21,7 @@ export const networkConf = {
       decimals: 18,
     },
     rpcUrls: 'https://ropsten.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161',
-    blockExplorerUrls: [SCAN_ADDRESS[ETHCHAINID.TESTNET]],
+    blockExplorerUrls: SCAN_ADDRESS[ETHCHAINID.TESTNET],
   },
   // DX - TEST
   [DXCHAINID.TESTNET]: {
@@ -32,7 +34,7 @@ export const networkConf = {
     },
     rpcUrls: 'https://http-testnet.hecochain.com',
     wsRpcUrls: 'wss://ws-testnet.hecochain.com',
-    blockExplorerUrls: [SCAN_ADDRESS[DXCHAINID.TESTNET]],
+    blockExplorerUrls: SCAN_ADDRESS[DXCHAINID.TESTNET],
   },
   // ETH - MAIN
   [ETHCHAINID.MAINNET]: {
@@ -44,7 +46,7 @@ export const networkConf = {
       decimals: 18,
     },
     rpcUrls: 'https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161',
-    blockExplorerUrls: [SCAN_ADDRESS[ETHCHAINID.TESTNET]],
+    blockExplorerUrls: SCAN_ADDRESS[ETHCHAINID.MAINNET],
   },
   // DX - MAIN
   [DXCHAINID.MAINNET]: {
@@ -56,7 +58,7 @@ export const networkConf = {
       decimals: 18,
     },
     rpcUrls: 'https://http-mainnet.hecochain.com/',
-    blockExplorerUrls: [SCAN_ADDRESS[DXCHAINID.TESTNET]],
+    blockExplorerUrls: SCAN_ADDRESS[DXCHAINID.MAINNET],
   },
 };
 
