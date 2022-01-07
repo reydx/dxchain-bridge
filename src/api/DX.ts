@@ -1,7 +1,7 @@
 import { getOtherChainContract } from './contract';
 import { isETHChain } from '@/constants/chainId';
 import { getChainContract } from './contract';
-import erc20Abi from '@/constants/abi/WETH.json';
+import erc20Abi from '@/constants/abi/ERC20.json';
 import dxErc20Abi from '@/constants/abi/DXERC20.json';
 
 export const getBalance = async (

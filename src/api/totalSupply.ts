@@ -11,7 +11,6 @@ type getTotalSupplyType = {
 
 export const getTotalSupply = async (props: getTotalSupplyType) => {
   const { token } = props;
-  console.log(`token`, token);
   const ethContract = getChainContract(
     ethAbi,
     token.nativeContractAddress,

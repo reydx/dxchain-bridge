@@ -35,7 +35,7 @@ export default function useTransfer() {
               otherChainId(chainId),
             ).eth.getBlockNumber();
             setInput('');
-            routerPush(`/transaction`, { txHash, otherChainBlock });
+            routerPush(`/transaction`, { txHash, otherChainBlock, chainId });
           },
           errorCallback: () => {
             routerPush('/');

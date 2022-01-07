@@ -12,6 +12,8 @@ import proofHooks from './hooks';
 import { formatCurrency } from '@/utils/currency';
 import { networkConf } from '@/constants/network';
 import { DxChainId, EthChainId } from '@/constants/chainId';
+import useMetaMask from '@/hooks/useMetaMask';
+import { SerializedToken } from '@/models/useGetState';
 
 type InfoTagProps = {
   info: {
@@ -23,10 +25,13 @@ type InfoTagProps = {
   symbolName: string;
   showLink?: boolean;
   showMetaMask?: boolean;
+  token?: SerializedToken;
 };
 
 const InfoTag = (props: InfoTagProps) => {
-  const { info, showLink, showMetaMask, tTitle, symbolName } = props;
+  const { info, showLink, showMetaMask, tTitle, symbolName, token } = props;
+  const { metaMaskAddToken } = useMetaMask();
+
   return (
     <div className="info-tag">
       <div className="t-title">{tTitle}</div>
@@ -40,7 +45,18 @@ const InfoTag = (props: InfoTagProps) => {
           </div>
           <div>
             {showMetaMask && (
-              <img className="meatMask-logo" src={meatMaskLogoW} alt="" />
+              <img
+                className="meatMask-logo"
+                src={meatMaskLogoW}
+                alt=""
+                onClick={() =>
+                  token &&
+                  metaMaskAddToken(
+                    { ...token, address: token?.nativeContractAddress },
+                    false,
+                  )
+                }
+              />
             )}
             <img
               className="copy"
@@ -99,6 +115,7 @@ export default function Proof() {
                   symbolName={item.assetName}
                   showLink
                   showMetaMask
+                  token={item}
                 />
               </div>
               <div className="left">

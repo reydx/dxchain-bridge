@@ -49,8 +49,16 @@ export default function transactionHooks() {
 
   const init = async () => {
     const query: any = history.location.query || {};
-    const { txHash, otherChainBlock } = query;
+    const { txHash, otherChainBlock, chainId } = query;
     if (!txHash) history.push('/');
+    const oChainId = otherChainId(chainId);
+
+    setInfo({
+      ...info,
+      chainId,
+      oChainId,
+    });
+
     const [r1]: any = await Promise.all([awaitTransaction(txHash)]);
     const ammount = currencyToBigNumber(
       Web3.utils.hexToNumberString(r1.logs[0].data),
@@ -63,10 +71,9 @@ export default function transactionHooks() {
       .times(r1.gasUsed)
       .dividedBy(new BigNumber(10).pow(token.denomination));
     const gasPrice = usPrice.times(gas);
-    const tChainId = transactionChainId(token, r1.to);
-    const oChainId = otherChainId(tChainId);
 
     setInfo({
+      ...info,
       ...r1,
       txHash,
       ammount,
@@ -74,9 +81,9 @@ export default function transactionHooks() {
       price,
       gas,
       gasPrice,
-      tChainId,
-      oChainId,
       otherChainBlock,
+      chainId,
+      oChainId,
     });
   };
 

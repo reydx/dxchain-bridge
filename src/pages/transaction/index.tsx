@@ -8,10 +8,12 @@ import ChianImage from '@/components/ChainImage';
 import transactionHooks from './hooks';
 import './index.less';
 import { formatCurrency } from '@/utils/currency';
+import useMetaMask from '@/hooks/useMetaMask';
 
 export default function Transaction() {
   const { info, percent1, percent2, timeFirst, timeSecond }: any =
     transactionHooks();
+  const { metaMaskAddToken } = useMetaMask();
 
   return (
     <div className="transaction-page">
@@ -33,7 +35,11 @@ export default function Transaction() {
             <div>~US${formatCurrency(info.price, 2)}</div>
           </div>
           <div>
-            <img src={meatMaskLogoW} alt="" />
+            <img
+              src={meatMaskLogoW}
+              alt=""
+              onClick={() => metaMaskAddToken(info.token, true)}
+            />
           </div>
         </div>
       </div>
@@ -51,7 +57,7 @@ export default function Transaction() {
             </div>
             <div className="item-content">
               <div>
-                <ChianImage chainId={info.tChainId} />
+                <ChianImage chainId={info.chainId} />
               </div>
               <div>
                 <Progress percent={percent1} time={timeFirst} />
