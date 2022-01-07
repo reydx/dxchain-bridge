@@ -49,6 +49,13 @@ export const transferApi = async (props: transactionApiType) => {
       from: account,
       gas: 510000,
     };
+    console.log(`amount`, amount);
+
+    console.log(`amountToBigNumber(amount)`, amountToBigNumber(amount));
+    console.log(
+      `amountToBigNumber(amount)`,
+      amountToBigNumber(amount).toNumber(),
+    );
     return await contract.methods
       .transfer(walletAddress, amountToBigNumber(amount))
       .send(params, async (err: any, txHash: any) => {
