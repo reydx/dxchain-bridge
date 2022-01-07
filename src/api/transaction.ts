@@ -48,16 +48,10 @@ export const transferApi = async (props: transactionApiType) => {
       from: account,
       gas: 510000,
     };
-    console.log(`amount`, amount);
-    console.log(`amountToBigNumber(amount)`, amountToBigNumber(amount));
-    console.log(
-      `amountToBigNumber(amount)`,
-      amountToBigNumber(amount).toNumber(),
-    );
     return await contract.methods
       .transfer(
         walletAddress,
-        getDecimalAmount(new BigNumber(amount), token.denomination),
+        getDecimalAmount(new BigNumber(amount), token.denomination).toString(),
       )
       .send(params, async (err: any, txHash: any) => {
         if (err) {
@@ -73,7 +67,10 @@ export const transferApi = async (props: transactionApiType) => {
       gas: 510000,
     };
     return await contract.methods
-      .unwrap(amountToBigNumber(amount), otherChainId(chainId))
+      .unwrap(
+        getDecimalAmount(new BigNumber(amount), token.denomination),
+        otherChainId(chainId),
+      )
       .send(params, async (err: any, txHash: any) => {
         if (err) {
           errorCallback();
