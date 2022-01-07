@@ -4,10 +4,9 @@ import dxErc20Abi from '@/constants/abi/DXERC20.json';
 import { amountToBigNumber } from '@/utils/currency';
 import { isETHChain, otherChainId } from '@/constants/chainId';
 import { SerializedToken } from '@/models/useGetState';
-import Web3 from 'web3';
-import BigNumber from 'bignumber.js';
 import { getEthChainHttpWeb3 } from '@/utils/web3';
 import { getBalanceAmount } from '@/utils/formatBalance';
+import BigNumber from 'bignumber.js';
 
 type transactionApiType = {
   account: string | null | undefined;
@@ -49,13 +48,6 @@ export const transferApi = async (props: transactionApiType) => {
       from: account,
       gas: 510000,
     };
-    console.log(`amount`, amount);
-
-    console.log(`amountToBigNumber(amount)`, amountToBigNumber(amount));
-    console.log(
-      `amountToBigNumber(amount)`,
-      amountToBigNumber(amount).toNumber(),
-    );
     return await contract.methods
       .transfer(walletAddress, amountToBigNumber(amount))
       .send(params, async (err: any, txHash: any) => {
