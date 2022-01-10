@@ -5,7 +5,6 @@ export const ETHCHAINID = {
 
 export const DXCHAINID = {
   MAINNET: 128,
-  // TESTNET: 97,
   TESTNET: 256,
 };
 
@@ -22,7 +21,7 @@ export const otherChainId = (currentChainId: number | undefined): number => {
 };
 
 export const isETHChain = (chainId: number | undefined) => {
-  return chainId ? ETHChainIds.indexOf(chainId) !== -1 : false;
+  return chainId ? ETHChainIds.indexOf(Number(chainId)) !== -1 : false;
 };
 
 export const EthChainId = ETHCHAINID[REACT_NET];

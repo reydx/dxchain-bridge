@@ -86,32 +86,44 @@ export default function transactionHooks() {
 
   useEffect(() => {
     if (!info?.chainId) return;
+    const isEth = isETHChain(info.chainId);
     const dxchainLastSeenBlock =
       Data.nonCritical.networkViews.dxchain.lastSeenBlock;
     const ethereumLastSeenBlock =
       Data.nonCritical.networkViews.ethereum.lastSeenBlock;
-    const currentLastSeenBlock = isETHChain(info.chainId)
+    const currentLastSeenBlock = isEth
       ? ethereumLastSeenBlock
       : dxchainLastSeenBlock;
     const blockNumber = info.blockNumber;
     const num = currentLastSeenBlock - blockNumber;
     console.log(`num`, num);
-    if (num > -36 && num <= 0) {
-      const percent = Number((((num + 35) / 35) * 100).toFixed(2));
-      startFirst();
-      console.log(`percent`, percent);
-      setPercent1(percent);
-    } else if (num === 0) {
-      endFirst();
-    } else if (num > 0) {
-      setPercent1(100);
-      endFirst();
-      startSecond();
+    if (isEth) {
+      if (num > -36 && num < 0) {
+        const percent = Number((((num + 35) / 35) * 100).toFixed(2));
+        startFirst();
+        setPercent1(percent);
+      } else if (num === 0) {
+        setPercent1(100);
+        endFirst();
+      } else if (num > 0) {
+        setPercent1(100);
+        endFirst();
+        startSecond();
+      }
+    } else {
+      if (num === 0) {
+        setPercent1(100);
+        endFirst();
+      } else if (num > 0) {
+        setPercent1(100);
+        endFirst();
+        startSecond();
+      }
     }
   }, [Data, info]);
 
   useEffect(() => {
-    const { otherChainBlock, oChainId, token, from, txHash } = info;
+    const { otherChainBlock, oChainId, token, from, txHash, chainId } = info;
     timeRefId3.current = setInterval(async () => {
       if (oChainId && otherChainBlock) {
         const tokenAddress = isETHChain(oChainId)
@@ -125,19 +137,17 @@ export default function transactionHooks() {
           Data,
         }).then((res = []) => {
           console.log(`logRes`, res);
-          if (res.length) {
-            setPercent2(100);
-            endSecond();
-          }
-          // res.forEach((item: any) => {
-          //   if (item.returnValues.originTxId === txHash && !isETHChain(oChainId)) {
-          //     setPercent2(100);
-          //     endSecond()
-          //   } else {
-          //     setPercent2(100);
-          //     endSecond()
-          //   }
-          // });
+          res.forEach((item: any) => {
+            if (isETHChain(chainId)) {
+              if (item.returnValues.originTxId === txHash) {
+                setPercent2(100);
+                endSecond();
+              }
+            } else {
+              setPercent2(100);
+              endSecond();
+            }
+          });
         });
       }
     }, 3000);
