@@ -113,7 +113,7 @@ export default function Proof() {
                     totalSupply: formatCurrency(item.nativeBalanceOf),
                     address: Data.critical.walletAddress.ethereum,
                   }}
-                  href={`${networkConf[EthChainId].blockExplorerUrls}/address/${Data.critical.walletAddress.ethereum}`}
+                  href={`${networkConf[EthChainId].blockExplorerUrls}/token/${item.nativeContractAddress}?a=${Data.critical.walletAddress.ethereum}`}
                 />
               </div>
               <div className="left">

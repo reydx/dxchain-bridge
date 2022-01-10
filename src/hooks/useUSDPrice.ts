@@ -15,12 +15,17 @@ export default function useUSDPrice() {
 
     try {
       switch (token.assetName) {
+        case 'ETH':
+          await getUSDPriceApi(
+            Data.nonCritical.chainlinkEthUsdFeedAddress,
+            chainId,
+          ).then((res) => (price = res.answer));
+          break;
         case 'WETH':
           await getUSDPriceApi(
             Data.nonCritical.chainlinkEthUsdFeedAddress,
             chainId,
           ).then((res) => (price = res.answer));
-
           break;
         case 'DX':
           await getUSDPriceApi(

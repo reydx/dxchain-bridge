@@ -4,7 +4,7 @@ import { transferApi } from '@/api/transaction';
 import { useWeb3React } from '@web3-react/core';
 import useCommonHooks from './useCommonHooks';
 import { getHttpWeb3 } from '@/utils/web3';
-import { isETHChain, otherChainId } from '@/constants/chainId';
+import { otherChainId } from '@/constants/chainId';
 
 export default function useTransfer() {
   const { account, chainId } = useWeb3React();
@@ -14,36 +14,39 @@ export default function useTransfer() {
   const { routerPush } = useCommonHooks();
   const [loading, setLoading] = useState(false);
 
-  const transaction = async () => {
-    const onTheBridge = isETHChain(chainArr[0]);
+  const transferApiFn = async () => {
     if (!chainId) return;
+    await transferApi({
+      token: searchToken,
+      account,
+      chainId,
+      jsonConfig: Data,
+      amount: input,
+      callback: () => {},
+      successCallback: async (txHash) => {
+        const otherChainBlock = await getHttpWeb3(
+          otherChainId(chainId),
+        ).eth.getBlockNumber();
+        setInput('');
+        routerPush(`/transaction`, { txHash, otherChainBlock, chainId });
+      },
+      errorCallback: () => {
+        routerPush('/');
+        setLoading(false);
+      },
+    }).then((res) => {
+      console.log(`res`, res);
+    });
+  };
+
+  const transaction = async () => {
     setLoading(true);
     switch (searchToken.assetName) {
       case 'ETH':
+        routerPush('/confirm', { amount: input });
         break;
-
       default:
-        await transferApi({
-          token: searchToken,
-          account,
-          chainId,
-          jsonConfig: Data,
-          amount: input,
-          callback: () => {},
-          successCallback: async (txHash) => {
-            const otherChainBlock = await getHttpWeb3(
-              otherChainId(chainId),
-            ).eth.getBlockNumber();
-            setInput('');
-            routerPush(`/transaction`, { txHash, otherChainBlock, chainId });
-          },
-          errorCallback: () => {
-            routerPush('/');
-            setLoading(false);
-          },
-        }).then((res) => {
-          console.log(`res`, res);
-        });
+        transferApiFn();
         break;
     }
     setLoading(false);
@@ -52,5 +55,6 @@ export default function useTransfer() {
   return {
     loading,
     transaction,
+    transferApiFn,
   };
 }

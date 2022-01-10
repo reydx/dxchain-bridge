@@ -10,21 +10,6 @@ type Props = {
 
 export default function Progress(props: Props) {
   const { percent, time } = props;
-  // const [num, setnum] = useState(0);
-
-  // useEffect(() => {
-  // let id = setInterval(() => {
-  //   if (num > 100) return;
-  //   setnum((num) => {
-  //     if (num === 100) {
-  //       return 100;
-  //     } else {
-  //       return num + 10;
-  //     }
-  //   });
-  // }, 1000);
-  // return () => clearInterval(id);
-  // }, []);
 
   return (
     <div className="progress-components">

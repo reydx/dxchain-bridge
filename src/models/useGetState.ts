@@ -2,7 +2,10 @@ import { useState, useEffect } from 'react';
 import bridgeSeeting from '@/constants/abi/bridge_settings_1.json';
 import { useModel } from 'umi';
 import BigNumber from 'bignumber.js';
-import { DXCHAINID, ETHCHAINID } from '@/constants/chainId';
+import { DXCHAINID, ETHCHAINID, isETHChain } from '@/constants/chainId';
+import { ethereum } from '@/utils/web3';
+import Web3 from 'web3';
+import { DEFAULT_TOKEN } from '@/constants/token';
 
 export interface SerializedToken {
   asset: string;
@@ -28,7 +31,7 @@ interface SerializedTokenObjects {
 }
 
 export default function useGetState() {
-  const { setSearchToken } = useModel('useSelectModel', (m) => m);
+  const { searchToken, setSearchToken } = useModel('useSelectModel', (m) => m);
   const [Data, setData] = useState({ ...bridgeSeeting });
   const [tokens, setTokens] = useState<SerializedToken[]>([]);
 
@@ -55,7 +58,7 @@ export default function useGetState() {
         m.nonCritical.networkViews.ethereum.lastSeenBlock > r3LastSennBlock
           ? m
           : r3;
-
+      // console.log(`max`, max)
       setData(max);
     } catch (error) {
       console.error('Unable to fetch data:', error);
@@ -71,7 +74,7 @@ export default function useGetState() {
       [],
     );
     setTokens([...defaultTokens]);
-    setSearchToken([...defaultTokens][0]);
+    if (!searchToken) setSearchToken([...defaultTokens][0]);
     return defaultTokens;
   };
 
@@ -106,8 +109,17 @@ export default function useGetState() {
   }, [setData]);
 
   useEffect(() => {
-    getTokensList(Data?.critical?.assets || {});
-  }, [Data]);
+    const chainId = Web3.utils.toNumber(ethereum.chainId);
+    const isETH = isETHChain(chainId);
+    if (isETH) {
+      getTokensList({
+        ...Data?.critical?.assets,
+        ...DEFAULT_TOKEN,
+      });
+    } else {
+      getTokensList(Data?.critical?.assets || {});
+    }
+  }, [Data, ethereum.chainId]);
 
   return {
     Data,

@@ -90,7 +90,7 @@ export default function Transfer() {
             <span>Available balance</span>
             <span>
               {formatCurrency(transferData.availableBalanceTo, 6)}
-              {searchToken.assetName}
+              {searchToken.assetName === 'ETH' ? 'WETH' : searchToken.assetName}
             </span>
           </div>
         </div>

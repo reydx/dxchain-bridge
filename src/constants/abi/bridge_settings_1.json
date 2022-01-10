@@ -44,8 +44,8 @@
   "nonCritical": {
     "chainlinkDxUsdFeedAddress": "0xe1329b3f6513912caf589659777b66011aee5880",
     "chainlinkEthUsdFeedAddress": "0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419",
-    "currentDxPrice": 979880197,
-    "currentEthPrice": 400959124073,
+    "currentDxPrice": 900980089,
+    "currentEthPrice": 317034825358,
     "currentGasPrices": {
       "dxchain": {
         "nextBaseFee": "",
@@ -62,13 +62,13 @@
     },
     "networkViews": {
       "dxchain": {
-        "lastIndexedBlock": 11069692,
-        "lastSeenBlock": 10312026,
+        "lastIndexedBlock": 11634718,
+        "lastSeenBlock": 11634711,
         "nodeVersion": ""
       },
       "ethereum": {
-        "lastIndexedBlock": 11662835,
-        "lastSeenBlock": 11484869,
+        "lastIndexedBlock": 11787311,
+        "lastSeenBlock": 11787261,
         "nodeVersion": ""
       }
     },

@@ -1,12 +1,14 @@
-import React from 'react';
 import Note from '@/components/Note';
-import meatMaskLogoW from '@/assets/common/meatMask-logo-w.png';
 import Progress from '@/components/Progress';
+import { networkConf } from '@/constants/network';
+import { useWeb3React } from '@web3-react/core';
+import wrappingHooks from './hooks';
 import './index.less';
-import { useHistory } from 'umi';
 
 export default function Wrapping() {
-  const history = useHistory();
+  const { percent, txHash } = wrappingHooks();
+  const { chainId } = useWeb3React();
+
   return (
     <div className="wrapping-page">
       <Note
@@ -17,9 +19,16 @@ export default function Wrapping() {
         <div className="title">Wrapping your ETH</div>
         <div>
           Waiting for{' '}
-          <span onClick={() => history.push('/transaction')}>Confirmation</span>
+          <a
+            target="_blank"
+            href={`${
+              networkConf[Number(chainId)]?.blockExplorerUrls
+            }/tx/${txHash}`}
+          >
+            Confirmation
+          </a>
         </div>
-        <Progress />
+        <Progress percent={percent} />
       </div>
     </div>
   );

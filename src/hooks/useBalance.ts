@@ -13,7 +13,6 @@ export default function useBalance() {
   const [showBalanceKey, setShowBalanceKey] = useState<
     'nativeBalance' | 'wrappedBalance'
   >('nativeBalance');
-  const { Data } = useModel('useGetState', (data) => data);
 
   const getChainTokenBalance = async (token: SerializedToken, cid?: number) => {
     let balance = '0';
@@ -23,8 +22,9 @@ export default function useBalance() {
       if (isETHChain(cid)) {
         switch (token.assetName) {
           case 'ETH':
-            if (account)
+            if (account) {
               balance = await getEthChainHttpWeb3().eth.getBalance(account);
+            }
             break;
           default:
             balance = await getBalance(
@@ -37,8 +37,9 @@ export default function useBalance() {
       } else {
         switch (token.assetName) {
           case 'HT':
-            if (account)
+            if (account) {
               balance = await getDxChainHttpWeb3().eth.getBalance(account);
+            }
             break;
           default:
             balance = await getBalance(

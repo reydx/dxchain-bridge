@@ -1,8 +1,10 @@
 import Note from '@/components/Note';
 import meatMaskLogoW from '@/assets/common/meatMask-logo-w.png';
+import confirmHooks from './hooks';
 import './index.less';
 
 export default function Confirm() {
+  const {} = confirmHooks();
   return (
     <div className="confirm-page">
       <Note

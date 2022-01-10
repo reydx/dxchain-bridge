@@ -72,8 +72,8 @@ export default function TransferHooks() {
     const isNAN = !num;
     const isNegativeNum = num <= 0;
     const LackOfBalance = num > transferData.availableBalanceFrom.toNumber();
-    // const isGreaterThanGasFee = transferData.fee.toNumber() >= num;
-    const isGreaterThanGasFee = false;
+    const isGreaterThanGasFee =
+      new BigNumber(transferData.fee).times(3).toNumber() > num;
 
     setinputDisabled(
       isNAN || isNegativeNum || LackOfBalance || isGreaterThanGasFee,

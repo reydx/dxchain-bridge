@@ -9,6 +9,7 @@ import transactionHooks from './hooks';
 import './index.less';
 import { formatCurrency } from '@/utils/currency';
 import useMetaMask from '@/hooks/useMetaMask';
+import { networkConf } from '@/constants/network';
 
 export default function Transaction() {
   const { info, percent1, percent2, timeFirst, timeSecond }: any =
@@ -53,7 +54,15 @@ export default function Transaction() {
         <div className="t-body">
           <div className="item">
             <div className="t-note">
-              Waiting for <span>Confirmation</span>
+              Waiting for{' '}
+              <a
+                target="_blank"
+                href={`${
+                  networkConf[Number(info.chainId)]?.blockExplorerUrls
+                }/tx/${info.txHash}`}
+              >
+                Confirmation
+              </a>
             </div>
             <div className="item-content">
               <div>
@@ -72,7 +81,9 @@ export default function Transaction() {
           </div>
 
           <div className="item">
-            <div className="t-note">Waiting for Ethereum</div>
+            <div className="t-note">
+              Waiting for {networkConf[Number(info.chainId)]?.chainName}
+            </div>
             <div className="item-content">
               <div>
                 <ChianImage chainId={info.oChainId} />

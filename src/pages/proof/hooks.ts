@@ -27,7 +27,7 @@ export default function proofHooks() {
   };
 
   const init = async () => {
-    const list = [...tokens];
+    const list = [...tokens].filter((item) => item.assetName !== 'ETH');
     setProofList([...list]);
     for (const key in list) {
       await balanceOfAndTotalSupply(list[key]).then((res) => {
