@@ -121,6 +121,15 @@ export default function useGetState() {
     }
   }, [Data, ethereum.chainId]);
 
+  // useEffect(() => {
+  //   const chainId = Web3.utils.toNumber(ethereum.chainId);
+  //   const isETH = isETHChain(chainId);
+  //   console.log(`tokens`, tokens)
+  //   if (!isETH && tokens.length && searchToken.assetName === 'ETH') {
+  //     setSearchToken(tokens[0])
+  //   }
+  // }, [ethereum.chainId]);
+
   return {
     Data,
     tokens,

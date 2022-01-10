@@ -23,7 +23,9 @@ type InfoTagProps = {
   tTitle: string;
   symbolName: string;
   showLink?: boolean;
-  showMetaMask?: boolean;
+  showMetaMask?: {
+    address: string;
+  };
   token?: SerializedToken;
   href: string;
 };
@@ -53,7 +55,7 @@ const InfoTag = (props: InfoTagProps) => {
                 onClick={() =>
                   token &&
                   metaMaskAddToken(
-                    { ...token, address: token?.nativeContractAddress },
+                    { ...token, address: showMetaMask?.address },
                     false,
                   )
                 }
@@ -107,7 +109,9 @@ export default function Proof() {
                   tTitle="Proof of Asset"
                   symbolName={item.assetName}
                   showLink
-                  showMetaMask
+                  showMetaMask={{
+                    address: item.nativeContractAddress,
+                  }}
                   token={item}
                   info={{
                     totalSupply: formatCurrency(item.nativeBalanceOf),
@@ -119,11 +123,15 @@ export default function Proof() {
               <div className="left">
                 <InfoTag
                   tTitle="Wrapped Token"
-                  symbolName={`${item.assetName}.dx`}
+                  symbolName={`${item.assetName}`}
                   info={{
                     totalSupply: formatCurrency(item.wrappedTotalSupply),
                     address: item.wrappedContractAddress,
                   }}
+                  showMetaMask={{
+                    address: item.wrappedContractAddress,
+                  }}
+                  token={item}
                   href={`${networkConf[DxChainId].blockExplorerUrls}/token/${item.wrappedContractAddress}`}
                 />
                 {/* <InfoTag

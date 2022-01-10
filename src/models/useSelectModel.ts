@@ -1,5 +1,4 @@
-import { SetStateAction, useState } from 'react';
-import { useModel } from 'umi';
+import { useState } from 'react';
 import { SerializedToken } from './useGetState';
 import bridgeSeeting from '@/constants/abi/bridge_settings_1.json';
 
