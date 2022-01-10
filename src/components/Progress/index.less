@@ -20,13 +20,14 @@
         width: 18px;
         height: 18px;
         border-radius: 50%;
-        background: #000;
-        border: 2px solid #ffffff;
+        background: rgb(22, 22, 22);
+        border: 3px solid rgb(212, 210, 210);
+        animation: cloudy_shadow 2s linear infinite;
       }
       & > div:nth-of-type(2) {
         font-size: 16px;
         font-weight: 400;
-        margin-top: 5px;
+        margin-top: 10px;
       }
     }
     .start {
@@ -40,7 +41,7 @@
       z-index: 99;
       width: 10%;
       height: 2px;
-      box-shadow: 0px 0px 8px 0px rgba(255, 255, 255, 0.5);
+      box-shadow: 0px 0px 8px 0px rgba(255, 255, 255, 0.2);
       background: #ffffff;
       transition: all 1s;
     }
@@ -48,11 +49,12 @@
       position: absolute;
       height: 2px;
       width: 100%;
-      background-color: #203661;
+      background-color: rgba(255, 255, 255, 0.3);
     }
 
     .actived {
       background: #4d51ff !important;
+      animation: unset !important;
     }
     .time {
       position: absolute;
@@ -78,6 +80,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
+
       & > div:nth-of-type(1) {
         width: 0.3rem;
         height: 0.3rem;
@@ -122,5 +125,15 @@
       right: -1.4rem;
       top: -0.2rem;
     }
+  }
+}
+@keyframes cloudy_shadow {
+  0% {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2),
+      0 0 0 8px rgba(255, 255, 255, 0.2);
+  }
+  100% {
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.2),
+      0 0 0 14px rgba(255, 255, 255, 0);
   }
 }

@@ -47,7 +47,10 @@ export default function transactionHooks() {
   const init = async () => {
     const query: any = history.location.query || {};
     const { txHash, otherChainBlock, chainId } = query;
-    if (!txHash) history.push('/');
+    if (!txHash) {
+      history.push('/');
+      return;
+    }
     const oChainId = otherChainId(chainId);
 
     setInfo({
@@ -57,8 +60,12 @@ export default function transactionHooks() {
     });
 
     const [r1]: any = await Promise.all([awaitTransaction(txHash)]);
+    if (!r1.status) {
+      history.push('/');
+      return;
+    }
     const ammount = currencyToBigNumber(
-      Web3.utils.hexToNumberString(r1.logs[0].data),
+      Web3.utils.hexToNumberString(r1.logs?.[0]?.data),
     );
     const token = tokenAddressToTokenInfo(r1.to);
     const usPrice = await getUSDPrice(token);

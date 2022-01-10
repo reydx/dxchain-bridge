@@ -57,3 +57,17 @@ export const secondToHS = (second: number) => {
   const s = Math.floor(second % 60);
   return `${formatNumber(m)}:${formatNumber(s)}`;
 };
+
+export const stopScrollFun = (evt: any) => {
+  evt = evt || window.event;
+  if (evt.preventDefault) {
+    // Firefox
+    evt.preventDefault();
+    evt.stopPropagation();
+  } else {
+    // IE
+    evt.cancelBubble = true;
+    evt.returnValue = false;
+  }
+  return false;
+};

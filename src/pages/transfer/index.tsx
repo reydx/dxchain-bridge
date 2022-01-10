@@ -10,6 +10,7 @@ import TransferHooks from './hooks';
 import './index.less';
 import useCommonHooks from '@/hooks/useCommonHooks';
 import { formatCurrency } from '@/utils/currency';
+import { stopScrollFun } from '@/utils/common';
 
 export default function Transfer() {
   const { searchToken } = useModel('useSelectModel', (data) => data);
