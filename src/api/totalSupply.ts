@@ -9,7 +9,7 @@ type getTotalSupplyType = {
   token: SerializedToken;
 };
 
-export const getTotalSupply = async (props: getTotalSupplyType) => {
+export const getEthDxTotalSupply = async (props: getTotalSupplyType) => {
   const { token } = props;
   const ethContract = getChainContract(
     ethAbi,
@@ -30,4 +30,16 @@ export const getTotalSupply = async (props: getTotalSupplyType) => {
     nativeTotalSupply: getBalanceAmount(new BigNumber(r1), token.denomination),
     wrappedTotalSupply: getBalanceAmount(new BigNumber(r2), token.denomination),
   };
+};
+
+export const getTotalSupply = async (props: getTotalSupplyType) => {
+  const { token } = props;
+  const dxContract = getChainContract(
+    dxAbi,
+    token.wrappedContractAddress,
+    false,
+  );
+  const [r1] = await Promise.all([dxContract.methods.totalSupply().call()]);
+
+  return getBalanceAmount(new BigNumber(r1), token.denomination);
 };

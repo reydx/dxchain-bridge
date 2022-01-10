@@ -85,7 +85,7 @@ export default function transactionHooks() {
   };
 
   useEffect(() => {
-    if (!info?.chainId) return;
+    if (!info?.chainId || percent1 === 100) return;
     const isEth = isETHChain(info.chainId);
     const dxchainLastSeenBlock =
       Data.nonCritical.networkViews.dxchain.lastSeenBlock;
@@ -124,6 +124,7 @@ export default function transactionHooks() {
 
   useEffect(() => {
     const { otherChainBlock, oChainId, token, from, txHash, chainId } = info;
+    if (percent2 === 100) return;
     timeRefId3.current = setInterval(async () => {
       if (oChainId && otherChainBlock) {
         const tokenAddress = isETHChain(oChainId)

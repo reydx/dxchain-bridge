@@ -6,7 +6,7 @@ import copyImg from '@/assets/common/copy.png';
 import linkImg from '@/assets/common/link.png';
 import shareImg from '@/assets/common/share.png';
 import { copy, getCenterSubStr } from '@/utils/common';
-import { useHistory } from 'umi';
+import { useHistory, useModel } from 'umi';
 import './index.less';
 import proofHooks from './hooks';
 import { formatCurrency } from '@/utils/currency';
@@ -19,17 +19,18 @@ type InfoTagProps = {
   info: {
     totalSupply: string;
     address: string;
-    blockBrowser: string;
   };
   tTitle: string;
   symbolName: string;
   showLink?: boolean;
   showMetaMask?: boolean;
   token?: SerializedToken;
+  href: string;
 };
 
 const InfoTag = (props: InfoTagProps) => {
-  const { info, showLink, showMetaMask, tTitle, symbolName, token } = props;
+  const { info, showLink, showMetaMask, tTitle, symbolName, token, href } =
+    props;
   const { metaMaskAddToken } = useMetaMask();
 
   return (
@@ -64,11 +65,7 @@ const InfoTag = (props: InfoTagProps) => {
               alt=""
               onClick={() => copy(info.address)}
             />
-            <a
-              href={`${info.blockBrowser}/token/${info.address}`}
-              className="share"
-              target="_blank"
-            >
+            <a href={href} className="share" target="_blank">
               <img src={shareImg} alt="" />
             </a>
           </div>
@@ -86,6 +83,7 @@ const InfoTag = (props: InfoTagProps) => {
 export default function Proof() {
   const history = useHistory();
   const { proofList } = proofHooks();
+  const { Data } = useModel('useGetState', (data) => data);
 
   return (
     <div className="proof">
@@ -95,8 +93,8 @@ export default function Proof() {
         <CloseOutlined onClick={() => history.push('/')} />
       </div>
       <div className="note">
-        You can view all on-chain behaviors of AVAX token and locked native
-        token assets on this page
+        You can view all on-chain behaviors of DX token and locked native token
+        assets on this page
       </div>
 
       <ul>
@@ -107,15 +105,15 @@ export default function Proof() {
                 <TokenImage token={item} />
                 <InfoTag
                   tTitle="Proof of Asset"
-                  info={{
-                    totalSupply: formatCurrency(item.nativeTotalSupply),
-                    address: item.nativeContractAddress,
-                    blockBrowser: networkConf[EthChainId].blockExplorerUrls,
-                  }}
                   symbolName={item.assetName}
                   showLink
                   showMetaMask
                   token={item}
+                  info={{
+                    totalSupply: formatCurrency(item.nativeBalanceOf),
+                    address: Data.critical.walletAddress.ethereum,
+                  }}
+                  href={`${networkConf[EthChainId].blockExplorerUrls}/address/${Data.critical.walletAddress.ethereum}`}
                 />
               </div>
               <div className="left">
@@ -125,8 +123,8 @@ export default function Proof() {
                   info={{
                     totalSupply: formatCurrency(item.wrappedTotalSupply),
                     address: item.wrappedContractAddress,
-                    blockBrowser: networkConf[DxChainId].blockExplorerUrls,
                   }}
+                  href={`${networkConf[DxChainId].blockExplorerUrls}/token/${item.wrappedContractAddress}`}
                 />
                 {/* <InfoTag
                   tTitle="Wrapped Token"

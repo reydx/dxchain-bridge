@@ -13,6 +13,7 @@ export interface SerializedToken {
   nativeNetwork: 'ethereum' | string;
   nativeBalance?: BigNumber;
   nativeTotalSupply?: BigNumber;
+  nativeBalanceOf?: BigNumber;
   offboardFeeDollars: number;
   onboardFeeDollars: number;
   tokenName: string;
