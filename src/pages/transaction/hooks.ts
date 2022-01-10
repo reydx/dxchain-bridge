@@ -13,7 +13,6 @@ export default function transactionHooks() {
   const { getUSDPrice } = useUSDPrice();
   const [info, setInfo] = useState<any>({
     token: {},
-    tChainId: undefined,
   });
   const [percent1, setPercent1] = useState(0);
   const [percent2, setPercent2] = useState(0);
@@ -86,20 +85,21 @@ export default function transactionHooks() {
   };
 
   useEffect(() => {
-    if (!info?.tChainId) return;
+    if (!info?.chainId) return;
     const dxchainLastSeenBlock =
       Data.nonCritical.networkViews.dxchain.lastSeenBlock;
     const ethereumLastSeenBlock =
       Data.nonCritical.networkViews.ethereum.lastSeenBlock;
-    const currentLastSeenBlock = isETHChain(info.tChainId)
+    const currentLastSeenBlock = isETHChain(info.chainId)
       ? ethereumLastSeenBlock
       : dxchainLastSeenBlock;
     const blockNumber = info.blockNumber;
     const num = currentLastSeenBlock - blockNumber;
-
+    console.log(`num`, num);
     if (num > -36 && num <= 0) {
       const percent = Number((((num + 35) / 35) * 100).toFixed(2));
       startFirst();
+      console.log(`percent`, percent);
       setPercent1(percent);
     } else if (num === 0) {
       endFirst();

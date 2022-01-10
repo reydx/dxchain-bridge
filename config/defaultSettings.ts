@@ -31,4 +31,10 @@ export default defineConfig({
     dataField: '',
   },
   title: 'DxBridge',
+  // metas: [
+  //   {
+  //     'http-equiv': "Content-Security-Policy",
+  //     content: "upgrade-insecure-requests",
+  //   }
+  // ]
 });

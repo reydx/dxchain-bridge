@@ -33,7 +33,6 @@ export const networkConf = {
       decimals: 18,
     },
     rpcUrls: 'http://http-testnet.hecochain.com',
-    wsRpcUrls: 'wss://ws-testnet.hecochain.com',
     blockExplorerUrls: SCAN_ADDRESS[DXCHAINID.TESTNET],
   },
   // ETH - MAIN
