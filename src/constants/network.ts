@@ -5,7 +5,7 @@ const numberToHex = (chainId: number) => Web3.utils.numberToHex(chainId);
 
 const SCAN_ADDRESS = {
   [ETHCHAINID.TESTNET]: 'https://ropsten.etherscan.io',
-  [DXCHAINID.TESTNET]: 'https://testnet.hecoinfo.com/',
+  [DXCHAINID.TESTNET]: 'https://testnet.hecoinfo.com',
   [ETHCHAINID.MAINNET]: 'https://etherscan.io',
   [DXCHAINID.MAINNET]: 'https://hecoinfo.com',
 };
@@ -32,7 +32,7 @@ export const networkConf = {
       symbol: 'HT',
       decimals: 18,
     },
-    rpcUrls: 'https://http-testnet.hecochain.com',
+    rpcUrls: 'http://http-testnet.hecochain.com',
     wsRpcUrls: 'wss://ws-testnet.hecochain.com',
     blockExplorerUrls: SCAN_ADDRESS[DXCHAINID.TESTNET],
   },
@@ -57,7 +57,7 @@ export const networkConf = {
       symbol: 'HT',
       decimals: 18,
     },
-    rpcUrls: 'https://http-mainnet.hecochain.com/',
+    rpcUrls: 'https://http-mainnet.hecochain.com',
     blockExplorerUrls: SCAN_ADDRESS[DXCHAINID.MAINNET],
   },
 };

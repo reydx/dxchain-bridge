@@ -9,10 +9,7 @@ import BigNumber from 'bignumber.js';
 import { transferEvents } from '@/api/DX';
 
 export default function transactionHooks() {
-  const { tokenAddressToTokenInfo, Data, transactionChainId } = useModel(
-    'useGetState',
-    (m) => m,
-  );
+  const { tokenAddressToTokenInfo, Data } = useModel('useGetState', (m) => m);
   const { getUSDPrice } = useUSDPrice();
   const [info, setInfo] = useState<any>({
     token: {},
@@ -30,7 +27,6 @@ export default function transactionHooks() {
     if (timeRefId1.current) return;
     timeRefId1.current = setInterval(() => {
       settTimeFirst((time) => time + 1);
-      console.log(`111`, 111);
     }, 1000);
   };
 
@@ -42,7 +38,6 @@ export default function transactionHooks() {
     if (timeRefId2.current) return;
     timeRefId2.current = setInterval(() => {
       settTimeSecond((time) => time + 1);
-      console.log(`222`, 222);
     }, 1000);
   };
 
