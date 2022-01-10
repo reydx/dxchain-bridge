@@ -5,7 +5,8 @@ const numberToHex = (chainId: number) => Web3.utils.numberToHex(chainId);
 
 const SCAN_ADDRESS = {
   [ETHCHAINID.TESTNET]: 'https://ropsten.etherscan.io',
-  [DXCHAINID.TESTNET]: 'https://testnet.hecoinfo.com',
+  // [DXCHAINID.TESTNET]: 'https://testnet.bscscan.com',
+  [DXCHAINID.TESTNET]: 'https://testnet.hecoinfo.com/',
   [ETHCHAINID.MAINNET]: 'https://etherscan.io',
   [DXCHAINID.MAINNET]: 'https://hecoinfo.com',
 };
@@ -32,9 +33,20 @@ export const networkConf = {
       symbol: 'HT',
       decimals: 18,
     },
-    rpcUrls: 'http://http-testnet.hecochain.com',
+    rpcUrls: 'https://http-testnet.hecochain.com',
     blockExplorerUrls: SCAN_ADDRESS[DXCHAINID.TESTNET],
   },
+  // [DXCHAINID.TESTNET]: {
+  //   chainId: numberToHex(DXCHAINID.TESTNET),
+  //   chainName: 'Dxchain',
+  //   nativeCurrency: {
+  //     name: 'BNB',
+  //     symbol: 'BNB',
+  //     decimals: 18,
+  //   },
+  //   rpcUrls: 'https://data-seed-prebsc-1-s1.binance.org:8545/',
+  //   blockExplorerUrls: SCAN_ADDRESS[DXCHAINID.TESTNET],
+  // },
   // ETH - MAIN
   [ETHCHAINID.MAINNET]: {
     chainId: numberToHex(ETHCHAINID.MAINNET),

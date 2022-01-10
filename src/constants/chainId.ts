@@ -5,6 +5,7 @@ export const ETHCHAINID = {
 
 export const DXCHAINID = {
   MAINNET: 128,
+  // TESTNET: 97,
   TESTNET: 256,
 };
 
