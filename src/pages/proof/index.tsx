@@ -123,7 +123,7 @@ export default function Proof() {
               <div className="left">
                 <InfoTag
                   tTitle="Wrapped Token"
-                  symbolName={`${item.assetName}`}
+                  symbolName={`${item.assetName}.dx`}
                   info={{
                     totalSupply: formatCurrency(item.wrappedTotalSupply),
                     address: item.wrappedContractAddress,
