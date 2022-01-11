@@ -24,7 +24,7 @@ export default function Select() {
   return (
     <div className="select-box">
       <div>
-        Transfer to Avalanche network
+        Transfer to DxChain network
         <CloseOutlined className="icon" onClick={() => history.push('/')} />
       </div>
       <div>Choose a token from Ethereum</div>

@@ -11,7 +11,7 @@ import './index.less';
 const SwitchNetwork = () => {
   return (
     <div className="switch-network">
-      <div>Switch to the Avalanche Network to convert your AEB tokens</div>
+      <div>Switch to the DxChain Network to convert your AEB tokens</div>
       <div>
         <img src={switchImg} alt="" />
         <div>Switch</div>

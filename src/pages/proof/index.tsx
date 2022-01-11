@@ -95,8 +95,8 @@ export default function Proof() {
         <CloseOutlined onClick={() => history.push('/')} />
       </div>
       <div className="note">
-        You can view all on-chain behaviors of DX token and locked native token
-        assets on this page
+        You can view all on-chain behaviors of DxChain token and locked native
+        token assets on this page
       </div>
 
       <ul>
